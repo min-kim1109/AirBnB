@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Spots', {
@@ -11,7 +10,7 @@ module.exports = {
       },
       ownerId: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }
+        references: { model: 'Users' },
       },
       address: {
         type: Sequelize.STRING,
@@ -38,7 +37,7 @@ module.exports = {
         allowNull: false
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         allowNull: false
       },
       description: {
