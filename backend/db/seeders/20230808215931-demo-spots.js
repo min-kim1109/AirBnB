@@ -17,7 +17,7 @@ module.exports = {
         price: 450.00
       },
       {
-        ownerId: 1,
+        ownerId: 2,
         address: '36 Fuller Pl',
         city: 'Brooklyn',
         state: 'New York',
@@ -29,7 +29,7 @@ module.exports = {
         price: 120.00
       },
       {
-        ownerId: 1,
+        ownerId: 3,
         address: '42 Wallaby Way, Sydney',
         city: 'Sydney',
         state: 'N/A',
@@ -53,9 +53,16 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
+    options.tableName = 'Spots';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Spots', {
-      name: { [Op.in]: ['Cloverfield Lane Experience', 'Parker Residence', 'P. Sherman Residence'] }
-    }, {});
+    return queryInterface.bulkDelete(options, {
+      ownerId: { [Op.in]: [1, 2, 3] }
+    }, {})
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
   }
 };
