@@ -1,7 +1,5 @@
 'use strict';
 
-const { Spot } = require('../models/spot');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -55,9 +53,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Spot';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+    return queryInterface.bulkDelete('Spots', {
       name: { [Op.in]: ['Cloverfield Lane Experience', 'Parker Residence', 'P. Sherman Residence'] }
     }, {});
   }
