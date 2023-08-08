@@ -5,7 +5,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Spots', [
       {
-        ownerId: 3,
+        ownerId: 1,
         address: '10 Cloverfield Lane',
         city: 'Hahnville',
         state: 'Louisiana',
@@ -17,7 +17,7 @@ module.exports = {
         price: 450.00
       },
       {
-        ownerId: 3,
+        ownerId: 1,
         address: '36 Fuller Pl',
         city: 'Brooklyn',
         state: 'New York',
@@ -29,7 +29,7 @@ module.exports = {
         price: 120.00
       },
       {
-        ownerId: 3,
+        ownerId: 1,
         address: '42 Wallaby Way, Sydney',
         city: 'Sydney',
         state: 'N/A',
