@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Spot, Review, User, SpotImage } = require('../../db/models');
+const { Spot, Review, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 
@@ -164,7 +164,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 model: Review,
             },
             {
-                model: spotImage
+                model: SpotImage
             }
         ]
     })
@@ -195,7 +195,7 @@ router.get('/current', requireAuth, async (req, res) => {
         delete spot.SpotImages
     })
 
-    res.json(spotsList)
+    res.json({ spotsList })
 })
 
 
