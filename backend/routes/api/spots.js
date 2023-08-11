@@ -142,7 +142,7 @@ router.get("/:spotId", async (req, res) => {
         include: [
             { model: Review },
             { model: SpotImage, attributes: ["id", "url", "preview"] },
-            { model: User, attributes: ["id", "firstName", "lastName"] },
+            { model: User, as: "Owner", attributes: ["id", "firstName", "lastName"] },
         ],
     });
 
@@ -283,5 +283,8 @@ router.get("/:spotId/reviews", async (req, res) => {
         res.json({ message: "Spot couldn't be found" });
     }
 });
+
+// Create a booking based on spot's id
+
 
 module.exports = router;

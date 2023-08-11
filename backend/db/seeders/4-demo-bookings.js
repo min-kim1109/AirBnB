@@ -27,7 +27,8 @@ module.exports = {
         userId: 3,
         startDate: '2023-03-01',
         endDate: '2023-03-03'
-      }
+      },
+
     ])
     /**
      * Add seed commands here.
@@ -41,16 +42,14 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Bookings'
+    options.tableName = "Bookings";
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      userId: { [Op.in]: [1, 2, 3] }
-    }, {})
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    return queryInterface.bulkDelete(
+      options,
+      {
+        spotId: { [Op.in]: [1, 2, 3] },
+      },
+      {}
+    );
+  },
 };
