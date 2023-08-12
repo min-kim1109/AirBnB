@@ -49,7 +49,7 @@ const validateQuery = [
 
 
 //Get all spots -----------------------------------------------------------------------------
-router.get('/', async (req, res) => {
+router.get('/', validateQuery, async (req, res) => {
 
     //get spots query filters
 
