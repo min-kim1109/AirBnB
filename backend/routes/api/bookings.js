@@ -48,7 +48,41 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 //Edit a booking
+router.put('/:bookingsId', requireAuth, async (req, res) => {
+    let bookingEdit = await Booking.findByPk(req.params.bookingsId);
+    let user = await User.findByPk(req.user.id);
+
+    if (bookingEdit) {
+        if (bookingEdit.userId === user.id) {
+            const { startDate, endDate } = req.body
+
+            await bookingEdit.update({
+                startDate,
+                endDate
+            })
+        } else {
+            res.status(404).json({ message: "Booking couldn't be found" })
+        }
+    }
+    res.json(bookingEdit)
+});
 
 //Delete a booking
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    let booking = await Booking.findByPk(req.params.bookingId)
+    let bookingId = req.params.bookingId
+
+    if (booking) {
+        if (booking.ownerId === bookingId) {
+            await booking.destroy();
+        }
+    } else {
+        res.status(404);
+        res.json({
+            message: "Booking couldn't be found",
+        });
+    }
+    res.json({ message: "Successfully deleted" });
+})
 
 module.exports = router;
