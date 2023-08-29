@@ -1,0 +1,58 @@
+.hidden {
+    display: none;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px 18px 25px;
+    border-bottom: 1px solid rgb(217, 217, 217);
+    background-color: rgb(254, 254, 254);
+    padding-bottom: 7px;
+}
+
+.profile-dropdown {
+    position: absolute;
+
+}
+
+.user-profile-button {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.fa-user-circle {
+    font-size: 22px;
+    color: rgb(105, 105, 105)
+}
+
+.fa-bars {
+    font-size: 14px;
+    margin-right: 10px;
+    color: rgb(105, 105, 105)
+}
+
+.user-profile-button-container:hover {
+    cursor: pointer;
+}
+
+.user-profile-button:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px #d6d6d6;
+    transition-delay: 4ms;
+}
+
+.user-profile-button:focus {
+    box-shadow: 2px 2px #d6d6d6;
+}
+
+.modal-text:hover {
+    background-color: #f8f8f8;
+    transition-delay: 2ms;
+}

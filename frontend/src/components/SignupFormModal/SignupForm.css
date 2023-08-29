@@ -1,0 +1,29 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 550px;
+    border-radius: 10px;
+}
+
+.label-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+.signup-errors {
+    color: red;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}

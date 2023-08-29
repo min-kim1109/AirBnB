@@ -1,9 +1,8 @@
-// frontend/src/components/SignupFormPage/index.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import './SignupForm.css';
+import "./SignupForm.css";
 
 function SignupFormModal() {
     const dispatch = useDispatch();
@@ -43,74 +42,92 @@ function SignupFormModal() {
     };
 
     return (
-        <>
+        <div className="signup-container">
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Email
+                <div className="label-input-container">
+                    <label>
+                        Email
+                    </label>
                     <input
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                </label>
+                </div>
                 {errors.email && <p>{errors.email}</p>}
-                <label>
-                    Username
+                <div className="label-input-container">
+                    <label>
+                        Username
+                    </label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                </label>
+                </div>
                 {errors.username && <p>{errors.username}</p>}
-                <label>
-                    First Name
+                <div className="label-input-container">
+                    <label>
+                        First Name
+                    </label>
                     <input
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                     />
-                </label>
+                </div>
                 {errors.firstName && <p>{errors.firstName}</p>}
-                <label>
-                    Last Name
+                <div className="label-input-container">
+                    <label>
+                        Last Name
+                    </label>
                     <input
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
                     />
-                </label>
+
+                </div>
                 {errors.lastName && <p>{errors.lastName}</p>}
-                <label>
-                    Password
+                <div className="label-input-container">
+                    <label>
+                        Password
+                    </label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                </label>
+
+                </div>
                 {errors.password && <p>{errors.password}</p>}
-                <label>
-                    Confirm Password
+                <div className="label-input-container">
+                    <label>
+                        Confirm Password
+                    </label>
                     <input
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-                </label>
+
+                </div>
                 {errors.confirmPassword && (
                     <p>{errors.confirmPassword}</p>
                 )}
-                <button type="submit">Sign Up</button>
+                <div className="button-container">
+                    <button type="submit">Sign Up</button>
+                </div>
             </form>
-        </>
+        </div>
+
     );
 }
 
