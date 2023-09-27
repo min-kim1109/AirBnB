@@ -13,8 +13,7 @@ function Navigation({ isLoaded }) {
             <NavLink exact to='/'>
                 <div id='logo-name-container'>
                     <i class="fa-brands fa-airbnb"></i>
-                    <h1>MinBnB
-                    </h1>
+                    <h1>MapleBnB</h1>
                 </div>
             </NavLink>
 

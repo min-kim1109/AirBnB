@@ -1,62 +1,43 @@
 import { csrfFetch } from "./csrf";
 
+// Type Constants
+const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
 
-//constants
-const LOAD_SPOTS = 'spots/getSpots';
-// const LOAD_DETAILS = 'spots/getSpotDetails'
 
-//actions
-const loadSpots = (spots) => {
-    return {
-        type: LOAD_SPOTS,
-        spots
-    }
+// Action Creators
+const getAllSpots = spot => {
+    return { type: GET_ALL_SPOTS, spot }
 };
 
-// const getSpotDetails = (spot) => ({
-//     type: LOAD_DETAILS,
-//     spot
-// })
 
-
-// thunks
-export const thunkLoadSpots = () => async (dispatch) => {
-    const response = await csrfFetch('/api/spots');
-    console.log('response: ', response)
+// Thunk action to get all spots
+export const getSpotsThunk = () => async dispatch => {
+    const response = await csrfFetch(`/api/spots`)
+    // console.log('response: ', response)
     if (response.ok) {
-        const data = await response.json();
-        dispatch(loadSpots(data));
-        return data;
+        const spot = await response.json()
+        dispatch(getAllSpots(spot))
+        // console.log('spots', spot)
+        return spot
     }
 };
 
-// export const thunkGetSpotDetails = (spotId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/spots/${spotId}`);
-//     if (response.ok) {
-//         const data = await response.json();
-//         console.log(data)
-//         dispatch(getSpotDetails(data))
-//     }
-// }
 
-// reducers
-const initialState = {
-    allSpots: {}, oneSpot: {}
-}
+// key into 2nd
+const initialState = { allSpots: {}, singleSpot: {} }
 
+// Reducer
 const spotsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-        case LOAD_SPOTS:
-            newState = {};
-            action.spots.Spots.forEach((spot) => {
-                newState[spot.id] = spot;
+
+        case GET_ALL_SPOTS:
+            newState = { ...state, allSpots: {} };
+            action.spot.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
             });
-            return newState
-        // case LOAD_DETAILS:
-        //     const oneSpot = action.spot
-        //     newState = { ...state, oneSpot }
-        //     return newState;
+            return newState;
+
         default:
             return state
     }
