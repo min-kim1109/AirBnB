@@ -4,26 +4,31 @@ import { csrfFetch } from "./csrf"
 const GET_ALL_REVIEWS = 'reviews/GET_ALL_REVIEWS'
 
 // POJO Action Creator
-const getAllReviews = reviews => {
+const getAllReviews = (review, spotId) => {
     return {
         type: GET_ALL_REVIEWS,
-        reviews
+        review,
+        spotId
     }
-}
+};
 
 //! Thunks
 // Thunk action to get all reviews
-export const getSpotReviewsThunk = () => async dispatch => {
+export const getSpotReviewsThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
     if (response.ok) {
         const review = await response.json()
-        dispatch(getSpotReviewsThunk(review))
+        // console.log('review: ', review)
+        dispatch(getAllReviews(review))
         return review
+    } else {
+        const errors = await response.json();
+        return errors;
     }
 }
 
 // Initial state
-const initialState = { reviews: {} }
+const initialState = { spot: {}, user: {} }
 
 //! Reducer
 const reviewsReducer = (state = initialState, action) => {
@@ -31,9 +36,11 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ALL_REVIEWS:
-            newState = { ...state, reviews: {} }
-            action.reviews.Reviews.forEach(review => {
-                newState.reviews[review.id] = review
+            newState = { ...state, spot: {} };
+
+            action.review.Reviews.forEach(review => {
+
+                newState.spot[review.id] = review
             })
             return newState;
 
