@@ -2,11 +2,16 @@ import { csrfFetch } from "./csrf";
 
 // TYPE_CONSTANTS
 const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
+const GET_SPOT = 'spots/GET_SPOT';
 
 
 // POJO action creator
 const getAllSpots = spot => {
     return { type: GET_ALL_SPOTS, spot }
+};
+
+const getASpot = spot => {
+    return { type: GET_SPOT, spot }
 };
 
 
@@ -26,6 +31,16 @@ export const getSpotsThunk = () => async dispatch => {
     }
 };
 
+// Thunk to GET a spot
+export const getSpotThunk = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`)
+    if (response.ok) {
+        const spot = await response.json()
+        dispatch(getASpot(spot))
+        // console.log('getSpot: ', spot)
+        return spot
+    }
+}
 
 
 
@@ -42,6 +57,11 @@ const spotsReducer = (state = initialState, action) => {
             action.spot.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             });
+            return newState;
+
+        case GET_SPOT:
+            newState = { ...state, singleSpot: {} }
+            newState.singleSpot = action.spot;
             return newState;
 
         default:

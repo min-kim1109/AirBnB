@@ -4,6 +4,7 @@
     align-items: center;
     width: 380px;
     height: 300px;
+    border-radius: 10px;
 }
 
 .label-container {
