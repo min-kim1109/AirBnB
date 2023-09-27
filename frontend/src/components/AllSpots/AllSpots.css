@@ -16,8 +16,9 @@
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
-    min-width: 215px;
-    width: 22%;
+    /* min-width: 250px;
+    min-height: 300px; */
+    width: auto;
     height: auto;
     object-fit: fill;
     margin: 15px 10px;
@@ -35,6 +36,26 @@
     border-radius: 10px;
 }
 
+.tooltip {
+    /* border: 1px solid green; */
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    padding: 1px 5px;
+    justify-content: center;
+    position: sticky;
+    font-size: 12px;
+    bottom: 100%;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.spot:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 
 
 

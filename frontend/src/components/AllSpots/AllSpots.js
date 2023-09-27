@@ -37,6 +37,7 @@ const SpotsBrowser = () => {
                             </span>
                         </div>
                         <span className='price'>${spot.price}/night</span>
+                        <div className='tooltip'>{spot.name}</div>
 
                     </NavLink>
                 ))}

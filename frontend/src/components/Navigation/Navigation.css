@@ -1,3 +1,11 @@
+.logo-name-container {
+    color: white
+}
+
+.pokebnb {
+    text-decoration: none;
+}
+
 .hidden {
     display: none;
 }
