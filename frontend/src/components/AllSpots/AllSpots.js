@@ -15,7 +15,7 @@ const SpotsBrowser = () => {
 
     // turn store data objects into an array
     const spotsArray = Object.values(allSpots)
-    // console.log('spotsArray: ', spotsArray)
+    console.log('spotsArray: ', spotsArray)
 
     // useEffect dispatches the thunk function 'getSpots()'
     useEffect(() => {
