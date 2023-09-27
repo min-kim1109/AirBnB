@@ -3,7 +3,7 @@ import React from 'react';
 import './AllSpots.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { thunkLoadSpots } from '../../store/spots';
+import { getSpotsThunk } from '../../store/spots';
 
 function AllSpots() {
 
@@ -13,7 +13,7 @@ function AllSpots() {
     console.log('arrAllSpots: ', arrAllSpots)
 
     useEffect(() => {
-        dispatch(thunkLoadSpots())
+        dispatch(getSpotsThunk())
     }, [dispatch]);
 
     return (
