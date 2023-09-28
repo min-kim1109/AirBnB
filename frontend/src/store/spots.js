@@ -1,18 +1,27 @@
 import { csrfFetch } from "./csrf";
 
-// TYPE_CONSTANTS
+// Constants
 const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
 const GET_SPOT = 'spots/GET_SPOT';
+const GET_USER_SPOTS = 'spots/GET_USER_SPOTS';
 
 
 // POJO action creator
 const getAllSpots = spot => {
-    return { type: GET_ALL_SPOTS, spot }
+    return {
+        type: GET_ALL_SPOTS,
+        spot
+    }
 };
 
 const getASpot = spot => {
-    return { type: GET_SPOT, spot }
+    return {
+        type: GET_SPOT,
+        spot
+    }
 };
+
+
 
 
 
@@ -41,6 +50,20 @@ export const getSpotThunk = (spotId) => async dispatch => {
         return spot
     }
 }
+
+export const createSpotThunk = (spot) => async (dispatch) => {
+    // console.log('createSpot spot: ', spot)
+    const response = await csrfFetch('/api/spots', {
+        method: 'POST',
+        body: JSON.stringify(spot)
+    })
+    // console.log('store/spot spot: ', spot)
+    const newSpot = await response.json()
+    dispatch(getASpot(newSpot))
+    // console.log('createSpot THUNK newSpot: ', newSpot)
+    return newSpot
+};
+
 
 
 

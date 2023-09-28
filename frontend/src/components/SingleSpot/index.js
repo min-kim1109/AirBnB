@@ -90,7 +90,7 @@ const SingleSpot = () => {
             </div>
             <div className="starReviews">
                 <h3 className="reviewsRating">
-                    <i className="fa-solid fa-star"></i>{!spot.avgStarRating ? <span>NEW</span> : spot.avgStarRating.toFixed(1)}
+                    <i className="fa-solid fa-star"></i>{!spot.avgRating ? <span>NEW</span> : spot.avgRating.toFixed(1)}
                 </h3>
                 {spot.numReviews ? <i className="fa-solid fa-circle"></i> : <p></p>}
                 <h3 className="reviewsNumReviews">

@@ -8,6 +8,8 @@
     /* border: 1px solid red; */
     width: 100%;
     height: auto;
+    display: flex;
+    justify-content: flex-start
 }
 
 .nameLocation {
@@ -58,6 +60,7 @@
     position: relative;
     left: 25px;
     display: flex;
+    justify-content: flex-start;
 }
 
 .owner-description {

@@ -35,6 +35,8 @@
     margin-bottom: 10px;
 }
 
+
+
 .fa-user-circle {
     font-size: 22px;
     color: rgb(105, 105, 105)
@@ -43,7 +45,10 @@
 .fa-bars {
     font-size: 14px;
     margin-right: 10px;
-    color: rgb(105, 105, 105)
+    color: rgb(105, 105, 105);
+    display: flex;
+    justify-content: flex-end;
+
 }
 
 .user-profile-button-container:hover {
@@ -63,4 +68,11 @@
 .modal-text:hover {
     background-color: #f8f8f8;
     transition-delay: 2ms;
+}
+
+.rightNav {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
 }

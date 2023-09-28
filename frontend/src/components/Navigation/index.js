@@ -14,9 +14,9 @@ function Navigation({ isLoaded }) {
                 <div id='logo-name-container'>
                     {/* <i class="fa-brands fa-airbnb"></i> */}
                     <img src="https://i.gifer.com/DeRD.gif" alt="PokeBnB Logo" />
-                    <div id='pokebnb'>
+                    {/* <div id='pokebnb'>
                         <h1>PokeBnB</h1>
-                    </div>
+                    </div> */}
 
                 </div>
             </NavLink>
