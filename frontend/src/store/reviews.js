@@ -27,6 +27,20 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
     }
 }
 
+// Thunk action to create a review
+export const createReviewThunk = (review, spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json ' },
+        body: JSON.stringify(review)
+    })
+    if (response.ok) {
+        const reveiw = await response.json()
+        dispatch(getSpotReviewsThunk(review.spotId))
+        return review
+    }
+}
+
 // Initial state
 const initialState = { spot: {}, user: {} }
 
