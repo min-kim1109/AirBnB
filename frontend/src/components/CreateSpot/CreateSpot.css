@@ -1,4 +1,4 @@
-/* .form-container {
+.form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,19 +76,11 @@ form {
     color: white;
     background-color: #FF5A60;
     border-radius: 4px;
-
     width: 140px;
     height: 30px;
     margin: 20px auto;
 }
 
-
-
-.form-submitbutton:active {
-    background-color: rgb(60, 192, 60);
-    box-shadow: 0 2px #8f8f8f;
-    transform: translateY(2px);
-}
 
 .form-errors {
     color: red;
@@ -140,4 +132,4 @@ form {
 
 textarea {
     resize: none;
-} */
+}

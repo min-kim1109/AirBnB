@@ -32,11 +32,10 @@ const SpotsBrowser = () => {
                         <div className='image'><img src={spot.previewImage} alt='spotImg' /></div>
                         <div className='topRow'>
                             <span className='cityState'>{spot.city}, {spot.state}</span>
-                            <p>
-                                <span className='rating'><i className="fa-solid fa-star"></i>
-                                    {!spot.avgRating ? <span>NEW</span> : spot.avgRating.toFixed(1)}
-                                </span>
-                            </p>
+
+                            <span className='rating'><i className="fa-solid fa-star"></i>
+                                {!spot.avgRating ? <span>NEW</span> : spot.avgRating.toFixed(1)}
+                            </span>
                         </div>
                         <span className='price'>${spot.price}/night</span>
                         <div className='tooltip'>{spot.name}</div>

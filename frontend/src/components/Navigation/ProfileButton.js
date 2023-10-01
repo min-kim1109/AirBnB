@@ -51,6 +51,7 @@ function ProfileButton({ user }) {
                 ) : (
                     <></>
                 )}
+
                 <button onClick={openMenu}>
                     <i className="fas fa-user-circle" />
                 </button>
@@ -63,6 +64,13 @@ function ProfileButton({ user }) {
                             <li>
                                 <button onClick={logout}>Log Out</button>
                             </li>
+                            {user ? (
+                                <NavLink className="manageYourSpots" to='/spots/current'>
+                                    Manage Spots
+                                </NavLink>
+                            ) : (
+                                <></>
+                            )}
                         </>
                     ) : (
                         <>

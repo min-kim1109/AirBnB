@@ -4,22 +4,22 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from './components/AllSpots/AllSpots'
-import SingleSpot from "./components/SingleSpot";
+import SingleSpot from "./components/SingleSpot/SingleSpot";
 import SpotReviews from "./components/SpotReviews/SpotReviews"
 import MakeNewSpot from "./components/CreateSpot";
+import UsersSpots from "./components/ManageSpots"
+import UpdateSpot from "./components/UpdateSpots"
 
 function App() {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const [isLoaded, setIsLoaded] = useState(false);
   // dispatch dispatches thunk action .restoreUser()
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  const onClick = (e) => {
-    history.push('/')
-  }
+
 
   return (
     <>
@@ -31,6 +31,12 @@ function App() {
           </Route>
           <Route path='/spots/new'>
             <MakeNewSpot />
+          </Route>
+          <Route path='/spots/current'>
+            <UsersSpots />
+          </Route>
+          <Route path='/spots/:spotId/edit'>
+            <UpdateSpot />
           </Route>
           <Route path='/spots/:spotId'>
             <SingleSpot isLoaded={isLoaded} />
