@@ -1,78 +1,124 @@
-.logo-name-container {
-    color: white
-}
-
-.pokebnb {
-    text-decoration: none;
-}
-
 .hidden {
-    display: none;
+    display: none
 }
 
-.nav-container {
+.logo {
+    height: 50px;
+}
+
+.nav-list {
+    list-style-type: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 25px 18px 25px;
-    border-bottom: 1px solid rgb(217, 217, 217);
-    background-color: rgb(254, 254, 254);
-    padding-bottom: 7px;
+    border-bottom: 2px solid #CCCCCC;
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 70px;
+    margin: 0px;
 }
 
-.profile-dropdown {
-    position: absolute;
-
-}
-
-.user-profile-button {
+.user-nav {
     display: flex;
-    justify-content: space-between;
-    border: 1px solid rgb(217, 217, 217);
-    border-radius: 20px;
-    background-color: white;
-    padding: 5px 10px;
-    margin-bottom: 10px;
+    justify-content: end;
+    align-items: center;
+    column-gap: 20px;
 }
 
+.create-new-spot {
+    text-decoration: none;
+    color: black;
+}
 
-
-.fa-user-circle {
-    font-size: 22px;
-    color: rgb(105, 105, 105)
+.user-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 20px;
+    width: 80px;
+    padding: 5px;
+    gap: 5px;
+    cursor: pointer;
 }
 
 .fa-bars {
-    font-size: 14px;
+    transform: scale(1.5);
     margin-right: 10px;
-    color: rgb(105, 105, 105);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: gray
+}
+
+.fa-user-circle {
+    transform: scale(1.5);
+    color: gray
+}
+
+.profile-dropdown {
+    border: 1px solid gray;
+    margin-top: 5px;
+    padding: 10px;
+    list-style-type: none;
+    position: absolute;
+    right: 30px;
+    width: 150px;
+    background-color: white;
+}
+
+.profile-dropdown>li {
     display: flex;
-    justify-content: flex-end;
-
+    justify-content: center;
+    padding: 2px 0px;
+    font-size: 14px;
 }
 
-.user-profile-button-container:hover {
-    cursor: pointer;
-}
-
-.user-profile-button:hover {
-    cursor: pointer;
-    box-shadow: 2px 2px #d6d6d6;
-    transition-delay: 4ms;
-}
-
-.user-profile-button:focus {
-    box-shadow: 2px 2px #d6d6d6;
-}
-
-.modal-text:hover {
-    background-color: #f8f8f8;
-    transition-delay: 2ms;
-}
-
-.rightNav {
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: flex-end;
+.manage-spots-current {
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 5px 0px;
     text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+.manage-reviews-current {
+    text-align: center;
+    width: 100%;
+    padding: 5px 0px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid gray;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.manage-spots-current:hover,
+.manage-reviews-current:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.logout-button {
+    color: white;
+    background-color: gray;
+    border: 1px solid gray;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.login-modal,
+.signup-modal {
+    cursor: pointer;
+    padding: 5px 0px;
+    transition: background-color 0.3s;
+}
+
+.login-modal:hover,
+.signup-modal:hover {
+    background-color: rgb(240, 240, 240);
 }

@@ -1,55 +1,111 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams, } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getSpotReviewsThunk } from "../../store/reviews";
+import OpenModalButton from "../OpenModalButton";
+import { CreateReviewModal } from "./CreateReviewModal";
+import { DeleteReviewModal } from "./DeleteReviewModal";
+import "./SpotReviews.css";
 
-import './SpotReviews.css'
-
-const SpotReviews = () => {
-
+export const SpotReviews = () => {
     const dispatch = useDispatch();
-
-    let { spotId } = useParams();
-    spotId = parseInt(spotId)
-
-    let sessionUser = useSelector(state => state.session.user)
-    // console.log('SpotReviews sessionuser: ', sessionUser)
-
-    let reviews = useSelector(state => state.review.spot)
-    // console.log('SpotReviews reviews: ', reviews)
-
-    const spotReviews = Object.values(reviews).reverse()
-    // console.log('IN SpotReviews: spotReviews: ', spotReviews)
-
-    function lowBudgetDateConverter(date) {
-        let newDate = String(new Date(date))
-        let month = newDate.substring(4, 7)
-        let year = newDate.substring(10, 16)
-        return month.concat(year)
-    }
+    const { spotId } = useParams();
+    const spot = useSelector((state) => state.spot.singleSpot);
+    const reviews = useSelector((state) => state.review.spot);
+    const user = useSelector((state) => state.session.user);
 
     useEffect(() => {
-        dispatch(getSpotReviewsThunk(spotId))
-    }, [dispatch])
+        dispatch(getSpotReviewsThunk(spotId));
+    }, [dispatch, spotId]);
 
-    if (!reviews) return null
-    if (!sessionUser) sessionUser = 0;
+    if (!reviews[spotId]) return null;
+
+    const reviewsList = Object.values(reviews[spotId]).reverse();
+
+    const previousReview =
+        user && reviewsList.find((review) => review.userId === user.id);
+
+    const { avgStarRating, numReviews } = spot;
+
+    const createDate = (date) => {
+        const newDate = new Date(date);
+        const month = newDate.toLocaleString("default", { month: "long" });
+        const year = newDate.toLocaleString("default", { year: "numeric" });
+        return `${month} ${year}`;
+    };
 
     return (
-        <div className="spotReviewsContainer">
-            {!spotReviews.length && sessionUser ? <h2>Be the first to post a review!</h2> : <></>}
-            {!spotReviews.length ? <></> : spotReviews.map(review => (
-                <div key={`${review.id}`} className="review">
-                    {/* <h2>hello</h2> */}
-                    <span className="name">{review.User.firstName}</span>
-                    {/* <span className="date">{Date(review.createdAt).substring(4,16)}</span> */}
-                    <span className="date">{lowBudgetDateConverter(review.createdAt)}</span>
-                    <div className="reviewBody">{review.review}</div>
+        <div>
+            <div>
+                {reviewsList.length ? (
+                    <div>
+                        <div className="star-rating-review-container">
+                            <i className="fa-solid fa-star"></i>
+                            {Number(avgStarRating).toFixed(1)} · {numReviews}{" "}
+                            {numReviews > 1 ? "Reviews" : "Review"}
+                            <div className="post-review-button">
+                                {user && !previousReview && spot.ownerId !== user?.id && (
+                                    <OpenModalButton
+                                        buttonText="Post Your Review"
+                                        modalComponent={
+                                            <CreateReviewModal spot={spot} user={user} />
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
 
-                </div>
-            ))}
+                        {reviewsList.map((review) => (
+                            <div key={review.id}>
+                                <div className="review-user-date-description-container">
+                                    {review.User && (
+                                        <>
+                                            <h3 className="user-first-name">{review.User.firstName}</h3>
+                                            {/* Other user-related properties */}
+                                        </>
+                                    )}
+                                    <h4 className="review-date">{createDate(review.createdAt)}</h4>
+                                    <p className="review-description">{review.review}</p>
+
+                                    <div className="delete-review-button">
+                                        {review.userId === user?.id && (
+                                            <OpenModalButton
+                                                buttonText="Delete"
+                                                modalComponent={
+                                                    <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
+                                                }
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div>
+                        <div className="new-star-container">
+                            <i className="fa-solid fa-star"></i>
+                            New
+                            <div className="post-review-button">
+                                {user && !previousReview && spot.ownerId !== user?.id && (
+                                    <OpenModalButton
+                                        buttonText="Post Your Review"
+                                        modalComponent={
+                                            <CreateReviewModal spot={spot} user={user} />
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
+
+                        {user && !previousReview && spot.ownerId !== user?.id && (
+                            <h3 className="be-the-first-text">
+                                Be the first to post a review!
+                            </h3>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
-    )
-}
-
-export default SpotReviews;
+    );
+};

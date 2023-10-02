@@ -4,8 +4,8 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from './components/AllSpots/AllSpots'
-import SingleSpot from "./components/SingleSpot/SingleSpot";
-import SpotReviews from "./components/SpotReviews/SpotReviews"
+import { SingleSpot } from "./components/SingleSpot/SingleSpot";
+
 import MakeNewSpot from "./components/CreateSpot";
 import UsersSpots from "./components/ManageSpots"
 import UpdateSpot from "./components/UpdateSpots"
@@ -40,7 +40,7 @@ function App() {
           </Route>
           <Route path='/spots/:spotId'>
             <SingleSpot isLoaded={isLoaded} />
-            <SpotReviews />
+
           </Route>
         </Switch>
       )}

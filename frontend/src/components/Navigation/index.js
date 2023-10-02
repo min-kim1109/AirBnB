@@ -23,7 +23,7 @@ function Navigation({ isLoaded }) {
 
             {isLoaded && (
                 <div id='nav-container'>
-                    <i className="fa-solid fa-bars"></i>
+
                     <ProfileButton user={sessionUser} />
                 </div>
             )}

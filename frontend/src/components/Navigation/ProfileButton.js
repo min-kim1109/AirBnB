@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom'
-import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
-
+import { useDispatch } from "react-redux";
+import * as sessionActions from "../../store/session";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import { NavLink, useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -26,7 +26,7 @@ function ProfileButton({ user }) {
             }
         };
 
-        document.addEventListener('click', closeMenu);
+        document.addEventListener("click", closeMenu);
 
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
@@ -37,57 +37,82 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
+        history.push("/");
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <>
-            <div className="rightNav">
+            <div className="user-nav">
                 {user ? (
-                    <NavLink className="createASpot" to='/spots/new'>
-                        Create a New Spot
-                    </NavLink>
+                    <span>
+                        <NavLink className="create-new-spot" to="/spots/new">
+                            Create a New Spot
+                        </NavLink>
+                    </span>
                 ) : (
-                    <></>
+                    ""
                 )}
-
-                <button onClick={openMenu}>
+                <button className="user-button-container" onClick={openMenu}>
+                    <i className="fa-solid fa-bars"></i>
                     <i className="fas fa-user-circle" />
                 </button>
-                <ul className={ulClassName} ref={ulRef}>
-                    {user ? (
-                        <>
-                            <li>{user.username}</li>
-                            <li>{user.firstName} {user.lastName}</li>
-                            <li>{user.email}</li>
-                            <li>
-                                <button onClick={logout}>Log Out</button>
-                            </li>
-                            {user ? (
-                                <NavLink className="manageYourSpots" to='/spots/current'>
-                                    Manage Spots
-                                </NavLink>
-                            ) : (
-                                <></>
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            <OpenModalMenuItem
-                                itemText="Log In"
-                                onItemClick={closeMenu}
-                                modalComponent={<LoginFormModal />}
-                            />
+            </div>
+            <ul className={ulClassName} ref={ulRef}>
+                {user ? (
+                    <>
+                        <li> Hello, {user.firstName}</li>
+                        <li>{user.email}</li>
+                        <li>
+                            <NavLink
+                                exact
+                                to="/spots/current"
+                                className="manage-spots-current"
+                            >
+                                Manage Spots
+                            </NavLink>
+                        </li>
+                        <li>
+                            {/* <NavLink
+                exact
+                to="/reviews/current"
+                className="manage-reviews-current"
+              >
+                Manage Reviews
+              </NavLink> */}
+                            <div
+                                className="manage-reviews-current"
+                                onClick={() => alert("Feature Coming Soon...")}
+                            >
+                                Manage Reviews
+                            </div>
+                        </li>
+                        <li className="logout-button-container">
+                            <button className="logout-button" onClick={logout}>
+                                Log Out
+                            </button>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <div className="signup-modal">
                             <OpenModalMenuItem
                                 itemText="Sign Up"
                                 onItemClick={closeMenu}
                                 modalComponent={<SignupFormModal />}
                             />
-                        </>
-                    )}
-                </ul>
-            </div>
+                        </div>
+                        <div className="login-modal">
+                            <OpenModalMenuItem
+                                itemText="Log In"
+                                onItemClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
+                        </div>
+                    </>
+                )}
+            </ul>
         </>
     );
 }
