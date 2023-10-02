@@ -32,7 +32,7 @@ module.exports = {
         lat: 40.6584,
         lng: -73.9802,
         name: 'Rustboro City',
-        description: 'A metropolis located in western Hoenn. Fourth-largest city in Hoenn. The building architecture are designed with stone, giving it an old-town feeling. Visit gym-leader Roxanne and her team of Rock typed pokemon to get started on your first challenge as a Pokemon master!',
+        description: 'Fourth-largest city in Hoenn. The building architecture are designed with stone, giving it an old-town feeling. Visit gym-leader Roxanne and her team of Rock typed pokemon to get started on your first challenge as a Pokemon master!',
         price: 150.00
       },
       {
@@ -44,7 +44,7 @@ module.exports = {
         lat: -33.6740,
         lng: 151.2858,
         name: 'Sprout Tower',
-        description: 'Large pagoda located in Violet City in the Johto Region. The tower itself is over 100 feet tall and is held together by a giant flexible pillar that shakes from side to side. This flexibility protects the tall tower from earthquakes and symbolizes the battles that are occuring on upper floors. Legend has it that a 100-foot-tall Bellsprout was used to make the swaying pillar.',
+        description: 'The tower itself is over 100 feet tall and is held together by a giant flexible pillar that shakes from side to side. This flexibility protects the tall tower from earthquakes and symbolizes the battles that are occuring on upper floors.',
         price: 60.00
       },
       {
@@ -56,7 +56,7 @@ module.exports = {
         lat: -33.6740,
         lng: 151.2858,
         name: 'Celadon Town',
-        description: 'Celadon City is located in central Kanto. It is the most populous city in Kanto. The city has two entrances, one from the east via Route 7, and one from the west via Route 16. Celadon is the main place to spend money in Kanto, through the Celadon Department Store and the Celadon Game corner where you gamble your life earnings away. Celadon is also home to Erika, the city\'s gym leader.',
+        description: 'Celadon is the main place to spend money in Kanto, through the Celadon Department Store and the Celadon Game corner where you gamble your life earnings away. Celadon is also home to Erika, the city\'s gym leader.',
         price: 300.00
       },
       {
@@ -68,7 +68,7 @@ module.exports = {
         lat: -33.6740,
         lng: 151.2858,
         name: 'Ever Grande City',
-        description: 'City located on an island in eastern Hoenn. Location of the Hoenn Pokemon League. Must traverse through Victory road and it\'s hoard of trainers to be enter and challenge the Elite Four. The Elite Four comprises of the apex of Pokemon Trainers in the Hoenn Region. Defeat them all to have a chance at fighting the Champion for his acclaimed title.',
+        description: 'Must traverse through Victory road and it\'s hoard of trainers to challenge the Elite Four. The Elite Four comprises of the apex of Pokemon Trainers in the Hoenn Region. Defeat them all to have a chance at fighting the Champion for histitle.',
         price: 1000.00
       },
       {
@@ -80,7 +80,7 @@ module.exports = {
         lat: -33.6740,
         lng: 151.2858,
         name: 'Lavender Town',
-        description: 'Small town located in northeast Kanto, just south of the Rock Tunnel. Citizens of Lavender Town claim Lavender Town is known mainly for ghost sightings in the Pokemomn Tower and as the main gravesite of Pokemon. Citizens claim the ghosts that appear int he tower are the spirits of Pokemon that have died.',
+        description: 'Small town located in northeast Kanto, just south of the Rock Tunnel. Citizens of Lavender Town claim Lavender Town is known mainly for ghost sightings in the Pokemomn Tower and as the main gravesite of Pokemon. ',
         price: 125.00
       },
       {
@@ -92,7 +92,7 @@ module.exports = {
         lat: -33.6740,
         lng: 151.2858,
         name: 'Twinleaf Town',
-        description: 'Twinleaf Town is situated in the southwestern part of the Sinnoh Region. It is the nearest town to Lake Verity, referred to by residents as their local lake. It is a small town with the fresh scent of new leaves in the air. It feels like a place where adventures start. Your own home and your best friend\'s house are located here.',
+        description: 'Twinleaf Town is situated in the southwestern part of the Sinnoh Region. It is the nearest town to Lake Verity, referred to by residents as their local lake. It is a small town with the fresh scent of new leaves in the air. ',
         price: 35.00
       },
       {
