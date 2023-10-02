@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import { useDispatch } from "react-redux";
+import * as sessionActions from "../../store/session";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import { NavLink, useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -24,7 +26,7 @@ function ProfileButton({ user }) {
             }
         };
 
-        document.addEventListener('click', closeMenu);
+        document.addEventListener("click", closeMenu);
 
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
@@ -35,37 +37,79 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
+        history.push("/");
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <>
-            <button onClick={openMenu}>
-                <i className="fas fa-user-circle" />
-            </button>
+            <div className="user-nav">
+                {user ? (
+                    <span>
+                        <NavLink className="create-new-spot" to="/spots/new">
+                            Create a New Spot
+                        </NavLink>
+                    </span>
+                ) : (
+                    ""
+                )}
+                <button className="user-button-container" onClick={openMenu}>
+                    <i className="fa-solid fa-bars"></i>
+                    <i className="fas fa-user-circle" />
+                </button>
+            </div>
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>{user.username}</li>
-                        <li>{user.firstName} {user.lastName}</li>
+                        <li> Hello, {user.firstName}</li>
                         <li>{user.email}</li>
                         <li>
-                            <button onClick={logout}>Log Out</button>
+                            <NavLink
+                                exact
+                                to="/spots/current"
+                                className="manage-spots-current"
+                            >
+                                Manage Spots
+                            </NavLink>
+                        </li>
+                        <li>
+                            {/* <NavLink
+                exact
+                to="/reviews/current"
+                className="manage-reviews-current"
+              >
+                Manage Reviews
+              </NavLink> */}
+                            <div
+                                className="manage-reviews-current"
+                                onClick={() => alert("Feature Coming Soon...")}
+                            >
+                                Manage Reviews
+                            </div>
+                        </li>
+                        <li className="logout-button-container">
+                            <button className="logout-button" onClick={logout}>
+                                Log Out
+                            </button>
                         </li>
                     </>
                 ) : (
                     <>
-                        <OpenModalMenuItem
-                            itemText="Log In"
-                            onItemClick={closeMenu}
-                            modalComponent={<LoginFormModal />}
-                        />
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
-                            onItemClick={closeMenu}
-                            modalComponent={<SignupFormModal />}
-                        />
+                        <div className="signup-modal">
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                onItemClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </div>
+                        <div className="login-modal">
+                            <OpenModalMenuItem
+                                itemText="Log In"
+                                onItemClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
+                        </div>
                     </>
                 )}
             </ul>

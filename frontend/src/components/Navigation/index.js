@@ -12,14 +12,18 @@ function Navigation({ isLoaded }) {
         <ul id='logo-container'>
             <NavLink exact to='/'>
                 <div id='logo-name-container'>
-                    <i class="fa-brands fa-airbnb"></i>
-                    <h1>MapleBnB</h1>
+                    {/* <i class="fa-brands fa-airbnb"></i> */}
+                    <img src="https://i.gifer.com/DeRD.gif" alt="PokeBnB Logo" />
+                    {/* <div id='pokebnb'>
+                        <h1>PokeBnB</h1>
+                    </div> */}
+
                 </div>
             </NavLink>
 
             {isLoaded && (
                 <div id='nav-container'>
-                    <i className="fa-solid fa-bars"></i>
+
                     <ProfileButton user={sessionUser} />
                 </div>
             )}
