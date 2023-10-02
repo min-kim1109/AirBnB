@@ -84,7 +84,7 @@ module.exports = {
         price: 125.00
       },
       {
-        ownerId: 7,
+        ownerId: 1,
         address: '42 Wallaby Way, Sydney',
         city: 'Twinleaf Town',
         state: 'Sinnoh',
