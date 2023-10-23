@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSpotReviewsThunk } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
-import { CreateReviewModal } from "./CreateReviewModal";
-import { DeleteReviewModal } from "./DeleteReviewModal";
 import "./SpotReviews.css";
 
 export const SpotReviews = () => {
@@ -47,9 +45,7 @@ export const SpotReviews = () => {
                                 {user && !previousReview && spot.ownerId !== user?.id && (
                                     <OpenModalButton
                                         buttonText="Post Your Review"
-                                        modalComponent={
-                                            <CreateReviewModal spot={spot} user={user} />
-                                        }
+
                                     />
                                 )}
                             </div>
@@ -71,9 +67,7 @@ export const SpotReviews = () => {
                                         {review.userId === user?.id && (
                                             <OpenModalButton
                                                 buttonText="Delete"
-                                                modalComponent={
-                                                    <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
-                                                }
+
                                             />
                                         )}
                                     </div>
@@ -90,9 +84,7 @@ export const SpotReviews = () => {
                                 {user && !previousReview && spot.ownerId !== user?.id && (
                                     <OpenModalButton
                                         buttonText="Post Your Review"
-                                        modalComponent={
-                                            <CreateReviewModal spot={spot} user={user} />
-                                        }
+
                                     />
                                 )}
                             </div>
