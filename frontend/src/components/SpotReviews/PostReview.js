@@ -54,7 +54,7 @@ const PostReviews = ({ spot, user }) => {
             await dispatch(getSpotThunk(spot.id))
 
             // closes modal window
-            closeModal();
+            exitModal();
 
             // used to handle errors that might occur during execution of try block
         } catch (error) {
