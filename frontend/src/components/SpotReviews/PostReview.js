@@ -61,5 +61,69 @@ const PostReviews = ({ spot, user }) => {
             //informs user that an error occured when attempting to submit
             setServerError("An error occured while submitting your review.")
         }
-    }
+    };
+
+    // used to update stars state variable when user hovers over a star
+    const starHandler = (rating) => {
+        setStars(rating);
+    };
+
+    return (
+        <div className="review-modal-container">
+            <form className="submit-review-form" onSubmit={handleSubmit}>
+                <div className="review-container">
+                    <h2>How was your stay?</h2>
+                    {/* conditional rendering statement, checks if serverError state
+                    variable has a truthy value */}
+                    {serverError && <p className="server-error">{serverError}</p>}
+
+                    <textarea
+                        className="review-textarea"
+                        placeholder="Leave your review here..."
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                    />
+
+                    <div className="stars-container">
+                        <div className="stars-icons-rating">
+                            {/* array of star rating elements
+                            iterates over 1-5 and generates star elements based on
+                            rating values */}
+                            {[1, 2, 3, 4, 5].map((rating) => (
+                                <div key={rating}
+                                    // if rating is less than or equal to current value of
+                                    // the stars state variable we get filled star otherwise
+                                    // it shows empty star
+                                    className={rating <= stars ? "filled" : "empty"}
+                                    onMouseEnter={() => handleStarHover(rating)}
+                                    onMouseLeave={() => handleStarHover(stars)}
+                                    onClick={() => setStars(rating)}
+                                >
+                                    {/* i element displays either filled solid star or empty based on
+                                    whether rating is less than or equal to the stars value */}
+                                    <i className={rating <= stars ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+                                </div>
+                            ))}
+                        </div>
+                        <label className="star-label">Stars</label>
+                    </div>
+
+                    <button className="submit-review-button"
+                        type="submit"
+                        // condition to check if there are errors stored in the errors object
+                        // if errors condition evaluates to true and button is disabled
+                        // not stars checks if stars state variable is falsy, if the user
+                        // hasn't selected a star rating, this condition evaluates to true
+                        //  text.length checks for review text. if it's too short button is
+                        // disabled
+                        disabled={Object.keys(errors).length > 0 || !stars || text.length < 10}
+                    >
+                        Submit Your Review
+                    </button>
+                </div>
+            </form>
+        </div>
+    )
 }
+
+export default PostReviews;
