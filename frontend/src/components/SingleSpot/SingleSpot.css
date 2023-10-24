@@ -1,15 +1,13 @@
-.spotPage {
+.entireSpot {
     /* border: 1px solid red; */
     max-width: 1000px;
     margin-top: 20px;
 }
 
-.location-name h2 {
+.nameLocation h2 {
     /* border: 1px solid red; */
     width: 100%;
     height: auto;
-    display: flex;
-    justify-content: flex-start
 }
 
 .nameLocation {
@@ -19,23 +17,24 @@
     left: 25px;
 }
 
-.image-container {
+.imagesContainer {
     /* border: 1px solid blue; */
     max-width: 1000px;
-    max-height: 500px;
+    max-height: 300px;
     display: flex;
-    margin-left: 30px;
+    align-items: center;
+    justify-content: center;
 }
 
 .bigImg {
     /* border: 1px solid red; */
     max-width: 500px;
-    max-height: 500px;
+    max-height: 300px;
 }
 
 .bigImg img {
     max-width: 500px;
-    max-height: 500px;
+    max-height: 300px;
 }
 
 .imgBox {
@@ -46,23 +45,22 @@
 
 .imgBox img {
     /* border: 1px solid red; */
-    width: 150px;
-    height: 150px;
+    width: 245px;
+    height: 145px;
     object-fit: fill;
     margin: 1px 0px 3px 5px;
 }
 
-.spot-details {
+.spotDetails {
     border-bottom: 1px solid black;
     width: 95%;
     height: 200px;
     position: relative;
     left: 25px;
     display: flex;
-    justify-content: flex-start;
 }
 
-.owner-description {
+.ownerAndDescription {
     /* border: 1px solid green; */
     width: 650px;
     height: auto;

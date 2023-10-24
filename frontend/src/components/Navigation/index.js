@@ -1,33 +1,23 @@
-// frontend/src/components/Navigation/index.js
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
+
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     return (
-        <ul id='logo-container'>
-            <NavLink exact to='/'>
-                <div id='logo-name-container'>
-                    {/* <i class="fa-brands fa-airbnb"></i> */}
-                    <img src="https://i.gifer.com/DeRD.gif" alt="PokeBnB Logo" />
-                    {/* <div id='pokebnb'>
-                        <h1>PokeBnB</h1>
-                    </div> */}
-
-                </div>
+        <div className='navigationBar'>
+            <NavLink exact to="/" className='home-button' >
+                <img className='logo' />
             </NavLink>
-
             {isLoaded && (
-                <div id='nav-container'>
+                <ProfileButton className='profileButton' user={sessionUser} />
 
-                    <ProfileButton user={sessionUser} />
-                </div>
             )}
-        </ul>
+        </div>
     );
 }
 

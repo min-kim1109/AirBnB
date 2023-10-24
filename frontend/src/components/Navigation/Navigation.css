@@ -1,124 +1,138 @@
 .hidden {
-    display: none
+    display: none;
+}
+
+.navigationBar {
+    border-bottom: 1px solid #FF5A60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo {
-    height: 50px;
+    /* border: 3px solid red; */
+    height: 40px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.nav-list {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #CCCCCC;
-    padding-right: 20px;
-    padding-left: 20px;
-    height: 70px;
-    margin: 0px;
-}
-
-.user-nav {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    column-gap: 20px;
-}
-
-.create-new-spot {
-    text-decoration: none;
-    color: black;
-}
-
-.user-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border: 1px solid gray;
+button {
+    border: 1px solid black;
+    background-color: transparent;
     border-radius: 20px;
-    width: 80px;
-    padding: 5px;
-    gap: 5px;
+    display: flex;
+    align-items: center;
+    height: 30px;
     cursor: pointer;
 }
 
-.fa-bars {
-    transform: scale(1.5);
-    margin-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: gray
+.leftNav {
+    /* border: 1px solid red; */
+    display: flex;
+    text-decoration: none;
 }
 
-.fa-user-circle {
-    transform: scale(1.5);
-    color: gray
+.createASpot {
+    /* border: 1px solid red; */
+    text-decoration: none;
+    margin: 5px 20px;
+    color: #FF5A60;
+}
+
+i {
+    height: 12px;
+}
+
+.menu {
+    flex-direction: column;
+    padding-right: 2px;
+}
+
+.menu div {
+    background-color: black;
+    width: 15px;
+    height: 1px;
+    margin: 3px
 }
 
 .profile-dropdown {
-    border: 1px solid gray;
-    margin-top: 5px;
-    padding: 10px;
-    list-style-type: none;
-    position: absolute;
-    right: 30px;
-    width: 150px;
+    border: 1px solid black;
     background-color: white;
+    position: absolute;
+    /* right: 13px; */
+    right: 1%;
+    width: auto;
+    top: 45px;
+    padding: 0px;
 }
 
-.profile-dropdown>li {
+.userDropdown {
+    border: 1px solid black;
+    width: auto;
+    /* padding: 0px 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manageSpots {
+    border-bottom: 2px solid black;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    text-decoration: none;
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+.dt {
+    color: black;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.userMenu {
+    /* border: 1px solid blue; */
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 95%;
+    margin: 0px 10px 5px 10px;
+}
+
+.profile-dropdown button {
+    border: 2px solid black;
+    background-color: gray;
+    color: white;
+    width: 70%;
+    margin: 5px;
     display: flex;
     justify-content: center;
-    padding: 2px 0px;
-    font-size: 14px;
+
 }
 
-.manage-spots-current {
-    text-align: center;
-    width: 100%;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-    padding: 5px 0px;
-    text-decoration: none;
-    color: black;
-    transition: background-color 0.3s;
-}
-
-.manage-reviews-current {
-    text-align: center;
-    width: 100%;
-    padding: 5px 0px;
-    text-decoration: none;
-    color: black;
-    border-bottom: 1px solid gray;
-    transition: background-color 0.3s;
+.loginSignup {
     cursor: pointer;
+    /* border: 1px solid red; */
+    width: 100px;
 }
 
-.manage-spots-current:hover,
-.manage-reviews-current:hover {
-    background-color: rgb(240, 240, 240);
+.loginSignup div {
+    /* border: 1px solid red; */
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
 }
 
-.logout-button {
-    color: white;
-    background-color: gray;
-    border: 1px solid gray;
-    margin-top: 10px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.login-modal,
-.signup-modal {
-    cursor: pointer;
-    padding: 5px 0px;
-    transition: background-color 0.3s;
-}
-
-.login-modal:hover,
-.signup-modal:hover {
-    background-color: rgb(240, 240, 240);
+.userMenu div {
+    /* border: 1px solid red; */
+    font-size: 12px;
+    font-weight: 700;
+    /* position: relative; */
+    /* right: 25%; */
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
