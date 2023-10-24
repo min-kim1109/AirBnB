@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import * as spotsActions from '../../store/spots'
 import { createSpotImage } from '../../store/spotsImages';
-import './CreateSpot.css';
+import './NewSpot.css';
 
 function MakeNewSpot() {
     const dispatch = useDispatch();

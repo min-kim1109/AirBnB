@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 // Thunk action to getSpots from store/db
 import { getSpots } from '../../store/spots'
-import './AllSpots.css'
+import './SpotsLandingPage.css'
 
 const SpotsBrowser = () => {
 

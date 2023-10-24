@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react';
 import { useModal } from '../../context/Modal'
 import * as reviewActions from '../../store/reviews'
-
+import './ReviewModal.css'
 
 export const ReviewModal = ({ spot }) => {
 
