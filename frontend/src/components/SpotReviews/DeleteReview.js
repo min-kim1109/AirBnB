@@ -20,32 +20,33 @@ function DeleteReviewModal({ reviewId }) {
         // execute closeModal function
         await dispatch(deleteReviewThunk(reviewId)).then(closeModal)
     }
-}
 
-const noDelete = (e) => {
-    // prevent default behavior of an event
-    e.preventDefault();
-    // closes modal
-    closeModal();
-}
 
-return (
-    <div className='delete-review-container'>
-        <h3>Confirm Delete</h3>
-        <p>Are you sure you want to remove this review?</p>
-        <div className='confirm-buttons'>
-            <button
-                id='yes-button'
-                onClick={handleDelete}>
-                Yes (Delete Review)
-            </button>
-            <button
-                id='no-button'
-                onClick={noDelete}>
-                No (Keep Review)
-            </button>
+    const noDelete = (e) => {
+        // prevent default behavior of an event
+        e.preventDefault();
+        // closes modal
+        closeModal();
+    }
+
+    return (
+        <div className='delete-review-container'>
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to remove this review?</p>
+            <div className='confirm-buttons'>
+                <button
+                    id='yes-button'
+                    onClick={handleDelete}>
+                    Yes (Delete Review)
+                </button>
+                <button
+                    id='no-button'
+                    onClick={noDelete}>
+                    No (Keep Review)
+                </button>
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 export default DeleteReviewModal;

@@ -95,8 +95,8 @@ const PostReviews = ({ spot, user }) => {
                                     // the stars state variable we get filled star otherwise
                                     // it shows empty star
                                     className={rating <= stars ? "filled" : "empty"}
-                                    onMouseEnter={() => handleStarHover(rating)}
-                                    onMouseLeave={() => handleStarHover(stars)}
+                                    onMouseEnter={() => starHandler(rating)}
+                                    onMouseLeave={() => starHandler(stars)}
                                     onClick={() => setStars(rating)}
                                 >
                                     {/* i element displays either filled solid star or empty based on

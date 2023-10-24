@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getSpotThunk } from "../../store/spots";
 import { getSpotReviewsThunk } from "../../store/reviews";
-import { SpotReviews } from "../SpotReviews/SpotReviews";
+import { SpotReview } from "../SpotReviews/SpotReviews";
 import "./SingleSpot.css";
 
 
@@ -119,7 +119,7 @@ export const SingleSpot = () => {
             </div>
 
             {/* Also render `SpotReview` component */}
-            <SpotReviews />
+            <SpotReview />
         </div>
     );
 };
