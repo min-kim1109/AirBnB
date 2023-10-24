@@ -1,125 +1,142 @@
-import { useEffect } from "react";
+// import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getSpotThunk } from "../../store/spots";
-import { getSpotReviewsThunk } from "../../store/reviews";
-import { SpotReview } from "../SpotReviews/SpotReviews";
-import "./SingleSpot.css";
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getSpot } from '../../store/spots'
+import { getSpotReviews } from "../../store/reviews";
+import { ReviewModal } from "../ReviewModal";
+import { useModal } from "../../context/Modal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import './SingleSpot.css'
 
+const SingleSpot = () => {
 
-
-export const SingleSpot = () => {
-    // initialize to allow dispatch actions to redux store
     const dispatch = useDispatch();
 
-    // extract `spotId` param from URL
-    const { spotId } = useParams();
+    // Selects session.user object
+    const sessionUser = useSelector(state => state.session.user)
 
-    // extract data from store,
+    // Getting review store data object
+    const reviews = useSelector(state => state.review.spot)
+    // console.log('SingleSpot reviews: ', reviews)
+    const reviewsArray = Object.values(reviews)
+    // console.log('SingleSpot reviewsArray: ', reviewsArray)
 
-    const oneSpot = useSelector((state) => state.spot.singleSpot);
-    const reviews = useSelector((state) => state.review.spot);
+    let sessionUserId = 0;
 
-    // runs after component mounts
+    if (sessionUser) sessionUserId = sessionUser.id
+    // console.log('SingleSpot sessionUserId: ', sessionUserId)
+    let reviewed = false;
+    reviewsArray.map(
+        review => { if (review.userId === sessionUserId) reviewed = true }
+    )
+    // console.log('reviewed: ', reviewed)
+
+    let { spotId } = useParams();
+    // turn id from string into a number value
+    spotId = parseInt(spotId)
+    // selecting with 'useSelector' an object from 'store/index' then 'store/spots'
+
+    let spot = useSelector(state => state.spot.singleSpot)
+    const spotOwnerId = spot.ownerId
+    // console.log('SingleSpot spot: ', spot)
+    // console.log('SingleSpot butcher: ', Object.values(spot)[15].toFixed(1))
+
+    // Renders spot object with 'dispatch' from store using thunk function 'getSpots'
+    const spotImages = useSelector(state => state.spot.singleSpot.SpotImages)
+
     useEffect(() => {
-        // dispatch thunk action creator to fetch spot details
-        dispatch(getSpotThunk(spotId));
-        // effect runs whenever either dispatch or spotId changes
-    }, [dispatch, spotId]);
+        dispatch(getSpot(spotId))
+    }, [dispatch, reviewsArray.length])
 
-    // runs after component mounts
-    useEffect(() => {
-        // dispatch thunk action creator to fetch spot reviews
-        dispatch(getSpotReviewsThunk(spotId));
-        // effect runs whenever either dispatch or spotId changes
-    }, [dispatch, spotId]);
+    // console.log('SingleSpot spot: ', spot)
+    // console.log('SingleSpot spot.avgStarRating: ', spot.avgStarRating)
 
-    // prevent rendering empty content if `oneSpot` data hasn't loaded yet
-    if (!oneSpot.id) return null;
-    if (!reviews[spotId]) return null;
+    // if (!spot) return null;
+    if (!spotImages) return null;
+    const firstImg = spotImages[0]
+    if (!firstImg) return null;
+    if (!reviews) return null
+    // if (!sessionUser) return null;
 
-    // convert obj to arr and reverse order to show most recent first
-    const reviewsList = Object.values(reviews[spotId]).reverse();
+    const topBox = spotImages.slice(1, 3)
+    // console.log('imgBox: ', imgBox)
 
-    // destructure props of `oneSpot` obj
-    const {
-        Owner,
-        SpotImages,
-        avgStarRating,
-        city,
-        country,
-        description,
-        name,
-        numReviews,
-        price,
-        state,
-    } = oneSpot;
+    const bottomBox = spotImages.slice(3)
 
-    // extract main img and additonal imgs from `SpotImages` arr
-    // main is preview === true, additional are preview === false
-    const mainImage = SpotImages.find((image) => image.preview) || SpotImages[0];
-    const additionalImages = SpotImages.filter((image) => !image.preview);
+    const handleClick = (e) => {
+        e.preventDefault();
+        alert("FEATURE COMING SOON!")
+    }
 
     return (
-        <div className="view-spot-details">
-            <h1>{name}</h1>
-            <h3>
-                {city}, {state}, {country}
-            </h3>
+        <div className="entireSpot">
+            <div className="nameLocation">
+                <h2>{spot.name}</h2>
+                <h5>{spot.city}, {spot.state}, {spot.country}</h5>
+            </div>
 
-            <div className="spot-images">
-                <img className="main-image" src={mainImage.url} alt="main" />
-                <div className="additional-images-container">
-                    {additionalImages.map((img) => (
-                        <img
-                            className="additional-images"
-                            src={img.url}
-                            key={img.id}
-                            alt="additional"
-                        />
-                    ))}
+            <div className="imagesContainer">
+                <div className="bigImg"><img src={firstImg.url} alt='firstImg' /></div>
+                <div className="imgBox">
+                    <div className="topBox">
+                        {topBox.map(image => (
+                            <img key={image.url} src={image.url} className="img" alt="imgBox" />
+                        ))}
+                    </div>
+                    <div className="bottomBox">
+                        {bottomBox.map(image => (
+                            <img key={image.url} src={image.url} className="img" alt="imgBox" />
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            <div className="host-description-reserve-container">
-                <div className="host-description">
-                    <h3>
-                        Hosted by {Owner.firstName} {Owner.lastName}
-                    </h3>
-                    <p>{description}</p>
+            <div className="spotDetails">
+                <div className="ownerAndDescription">
+                    <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                    <div className="description">{spot.description}</div>
                 </div>
-
-                <div className="reserve-container">
-                    <div className="price-stars-reviews-container">
-                        <div className="price-night">
-                            <h4>${Number(price).toFixed(2)}</h4>
-                            <div>/night</div>
+                <div className="infoBox">
+                    <div className="topInfo">
+                        <div className="priceNight">
+                            <h3 className="price">${spot.price} </h3>
+                            <h5 className="night"> night</h5>
                         </div>
-
-                        {reviewsList.length ? (
-                            <span>
-                                <i className="fa-solid fa-star"></i>
-                                {Number(avgStarRating).toFixed(1)} · {numReviews}{" "}
-                                {numReviews > 1 ? "Reviews" : "Review"}
-                            </span>
-                        ) : (
-                            <span>
-                                <i className="fa-solid fa-star"></i>
-                                New
-                            </span>
-                        )}
+                        <div className="ratingReviews">
+                            <h5 className="rating">
+                                <i className="fa-solid fa-star"></i>{!spot.avgStarRating ? <span>NEW</span> : spot.avgStarRating.toFixed(1)}
+                            </h5>
+                            {spot.numReviews ? <i className="fa-solid fa-circle"></i> : <p></p>}
+                            <h5 className="numReviews">
+                                {spot.numReviews ? `${spot.numReviews}  ${spot.numReviews > 1 ? 'reviews' : 'review'}` : <p></p>}
+                            </h5>
+                        </div>
                     </div>
-
-                    <div className="reserve-button">
-                        <button onClick={() => alert("Feature Coming Soon...")}>
-                            Reserve
-                        </button>
-                    </div>
+                    <button className="reserve" onClick={handleClick}>
+                        Reserve
+                    </button>
                 </div>
             </div>
-
-            {/* Also render `SpotReview` component */}
-            <SpotReview />
+            <div className="starReviews">
+                <h3 className="reviewsRating">
+                    <i className="fa-solid fa-star"></i>{!spot.avgStarRating ? <span>NEW</span> : spot.avgStarRating.toFixed(1)}
+                </h3>
+                {spot.numReviews ? <i className="fa-solid fa-circle"></i> : <p></p>}
+                <h3 className="reviewsNumReviews">
+                    {spot.numReviews ? `${spot.numReviews} ${spot.numReviews > 1 ? 'reviews' : 'review'}` : <p></p>}
+                </h3>
+            </div>
+            {sessionUserId && spotOwnerId !== sessionUserId && !reviewed ?
+                <button className="postButton">
+                    <OpenModalMenuItem itemText='Post Your Review' modalComponent={<ReviewModal spot={spot} />} />
+                </button>
+                :
+                <></>
+            }
         </div>
-    );
-};
+    )
+}
+
+
+export default SingleSpot;

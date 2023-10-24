@@ -1,28 +1,43 @@
-import { csrfFetch } from "./csrf"
+import { csrfFetch } from "./csrf";
 
-// Constants
-const GET_ALL_REVIEWS = 'reviews/GET_ALL_REVIEWS'
-const DELETE_REVIEWS = 'reviews/DELETE_REVIEW'
+// TYPE_CONSTANTS
+const GET_ALL_REVIEWS = 'reviews/GET_ALL_REVIEWS';
+// const GET_REVIEW = 'reviews/GET_REVIEW'
+const DELETE_REVIEW = 'reviews/DELETE_REVIEW'
 
-// POJO Action Creator
+// POJO action creator
 const getAllReviews = (review, spotId) => {
-    return {
-        type: GET_ALL_REVIEWS,
-        review,
-        spotId
-    }
+    return { type: GET_ALL_REVIEWS, review, spotId }
 };
 
-const deleteReview = reviewId => {
-    return {
-        type: DELETE_REVIEWS,
-        reviewId
+// const getAReview = review => {
+//     return { type: GET_REVIEW, review } }
+
+const deleteAReview = reviewId => {
+    return { type: DELETE_REVIEW, reviewId }
+}
+
+// THUNK to create a review
+export const createReview = (review, spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review)
+    })
+    if (response.ok) {
+        // console.log('store/reviews createReview response: ', response)
+        const review = await response.json()
+        // console.log('store/reviews createReview review: ', review)
+        dispatch(getSpotReviews(review.spotId))
+        return review
+    } else {
+        const errors = await response.json()
+        return errors;
     }
 }
 
-//! Thunks
-// Thunk action to get all reviews
-export const getSpotReviewsThunk = (spotId) => async dispatch => {
+// Thunk action to get all spot reviews
+export const getSpotReviews = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
     if (response.ok) {
         const review = await response.json()
@@ -35,58 +50,36 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
     }
 }
 
-// Thunk action to create a review
-export const createReviewThunk = (review, spotId, user) => async (dispatch) => {
-    try {
-        const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(review),
-        });
-
-        if (res.ok) {
-            const newReview = await res.json();
-            dispatch(getSpotReviewsThunk(spotId));
-            // Handle the new review data as needed, e.g., show a success message or navigate to a different page.
-        } else {
-            const errors = await res.json();
-            // Handle errors appropriately, e.g., show error messages to the user.
-        }
-    } catch (error) {
-        console.error("Error creating review:", error);
-        // Handle any unexpected errors.
-    }
-};
-
-// Thunk action to delete a review
-export const deleteReviewThunk = (reviewId) => async dispatch => {
+// Thunk action to delete review
+export const deleteReview = (reviewId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
     if (response.ok) {
-        dispatch(deleteReview(reviewId))
+        dispatch(deleteAReview(reviewId))
         return response
+    } else {
+        const errors = await response.json()
+        return errors;
     }
 }
 
-// Initial state
+
+// key into second
 const initialState = { spot: {}, user: {} }
 
-//! Reducer
-const reviewsReducer = (state = initialState, action) => {
+const reviewReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
 
         case GET_ALL_REVIEWS:
             newState = { ...state, spot: {} };
-
             action.review.Reviews.forEach(review => {
-
                 newState.spot[review.id] = review
             })
             return newState;
 
-        case DELETE_REVIEWS:
+        case DELETE_REVIEW:
             newState = { ...state, spot: { ...state.spot } }
             delete newState.spot[action.reviewId]
             return newState;
@@ -96,4 +89,4 @@ const reviewsReducer = (state = initialState, action) => {
     }
 }
 
-export default reviewsReducer;
+export default reviewReducer;

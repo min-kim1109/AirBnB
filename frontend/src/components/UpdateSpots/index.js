@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import * as spotsActions from '../../store/spots'
-
+// import { createSpotImage } from '../../store/spotsImages';
 import './UpdateSpot.css';
 
 function UpdateSpot() {
@@ -16,7 +16,17 @@ function UpdateSpot() {
     const [name, setName] = useState('')
     const [price, setPrice] = useState()
     const [errors, setErrors] = useState({})
-
+    // const [img1, setImg1] = useState('')
+    // const [img2, setImg2] = useState('')
+    // const [img3, setImg3] = useState('')
+    // const [img4, setImg4] = useState('')
+    // const [imgErrors, setImgErrors] = useState({})
+    // const [previewImg, setPreviewImg] = useState('')
+    // const [needPreviewImg, setNeedPreviewImg] = useState(false)
+    // const [correctImg1, setCorrectImg1] = useState(false)
+    // const [correctImg2, setCorrectImg2] = useState(false)
+    // const [correctImg3, setCorrectImg3] = useState(false)
+    // const [correctImg4, setCorrectImg4] = useState(false)
 
     function checkValue(e) {
         setPrice(decimalsOnly(e.target.value))
@@ -28,19 +38,23 @@ function UpdateSpot() {
     }
 
     let spotDetails = useSelector(state => state.spot.singleSpot)
+    // Use spotId param and convert into number value
     let { spotId } = useParams();
     spotId = parseInt(spotId)
 
-    // console.log('UpdateSpot spotDetails: ', spotDetails)
+    console.log('UpdateSpot spotDetails: ', spotDetails)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
-
+        // setImgErrors({})
+        // const imgErrorsObj = { previewImgError: 'Preview image is required' }
 
         try {
+
             const updateSpot = await dispatch(
-                spotsActions.updateSpotThunk({
+
+                spotsActions.updateSpot({
                     ...spotDetails,
                     country,
                     address,
@@ -51,9 +65,77 @@ function UpdateSpot() {
                     price
                 })
             )
-            history.push(`/spots/${updateSpot.id}`)
 
+            // if (previewImg) {
+            //     (
+            //         // if previewImg does end with ..., setPreviewImg to false, else set true
+            //         previewImg.endsWith('jpg') ? setPreviewImg(false) : setPreviewImg(true) ||
+            //         previewImg.endsWith('jpeg') ? setPreviewImg(false) : setPreviewImg(true) ||
+            //         previewImg.endsWith('png') ? setPreviewImg(false) : setPreviewImg(true)
+            //     )
+            // }
+            // if (img1) {
+            //     (
+            //         img1.endsWith('jpg') ? setCorrectImg1(false) : setCorrectImg1(true) ||
+            //         img1.endsWith('jpeg') ? setCorrectImg1(false) : setCorrectImg1(true) ||
+            //         img1.endsWith('png') ? setCorrectImg1(false) : setCorrectImg1(true)
+            //     )
+            // }
+            // if (img2) {
+            //     (
+            //         img2.endsWith('jpg') ? setCorrectImg2(false) : setCorrectImg2(true) ||
+            //         img2.endsWith('jpeg') ? setCorrectImg2(false) : setCorrectImg2(true) ||
+            //         img2.endsWith('png') ? setCorrectImg2(false) : setCorrectImg2(true)
+            //     )
+            // }
+            // if (img3) {
+            //     (
+            //         img3.endsWith('jpg') ? setCorrectImg3(false) : setCorrectImg3(true) ||
+            //         img3.endsWith('jpeg') ? setCorrectImg3(false) : setCorrectImg3(true) ||
+            //         img3.endsWith('png') ? setCorrectImg3(false) : setCorrectImg3(true)
+            //     )
+            // }
+            // if (img4) {
+            //     (
+            //         img4.endsWith('jpg') ? setCorrectImg4(false) : setCorrectImg4(true) ||
+            //         img4.endsWith('jpeg') ? setCorrectImg4(false) : setCorrectImg4(true) ||
+            //         img4.endsWith('png') ? setCorrectImg4(false) : setCorrectImg4(true)
+            //     )
+            // }
+            // // console.log('newSpot: ', newSpot)
+            // // creates new previewImg and following spot images
+            // if (newSpot.id) {
+            //     await dispatch(createSpotImage({
+            //         url: previewImg,
+            //         preview: true
+            //     }, newSpot.id ))
+            //     await dispatch(createSpotImage({
+            //         url: img1,
+            //         preview: false
+            //     }, newSpot.id ))
+            //     await dispatch(createSpotImage({
+            //         url: img2,
+            //         preview: false
+            //     }, newSpot.id ))
+            //     await dispatch(createSpotImage({
+            //         url: img3,
+            //         preview: false
+            //     }, newSpot.id ))
+            //     await dispatch(createSpotImage({
+            //         url: img4,
+            //         preview: false
+            //     }, newSpot.id ))
+            // }
+            // console.log('newSpot: ', newSpot)
+            history.push(`/spots/${updateSpot.id}`)
+            // error = response.error
         } catch (error) {
+            // if (!previewImg) {
+            //     setNeedPreviewImg(true)
+            //     setImgErrors(imgErrorsObj)
+            //     console.log('NewSpot imgErrors: ', imgErrors)
+            //     return imgErrors
+            // }
             if (error) {
                 // data receives errors object
                 console.log('NewSpot component error: ', error)
@@ -66,17 +148,17 @@ function UpdateSpot() {
     }
 
     useEffect(() => {
-        dispatch(spotsActions.getSpotThunk(spotId))
+        dispatch(spotsActions.getSpot(spotId))
     }, [dispatch])
 
     if (!spotDetails) return null;
 
     return (
-        <div className='updateSpotContainer'>
+        <div className='updateFormContainer'>
             <h2>Update your Spot</h2>
             <form onSubmit={handleSubmit}>
                 <div className='locationParagraph'>
-                    <div className='locationParagraphText'>
+                    <div className='t'>
                         <span>Where's your place located?</span>
                         <p>Guests will only get your exact address once they booked a reservation.</p>
                     </div>
@@ -121,7 +203,7 @@ function UpdateSpot() {
                             // required
                             />
                         </ul>
-
+                        <ul className='commaContainer'>,</ul>
 
                         <ul className='stateContainer'>
                             <span>
@@ -194,7 +276,59 @@ function UpdateSpot() {
                     </div>
                     {errors.price && <span className='error bottomError'>Price is required</span>}
                 </div>
-
+                {/* <div className='c photoContainer'>
+                        <div className='t'>
+                            <span>Liven up your spot with photos</span>
+                            <p>
+                                Submit a link to at least one photo to publish your spot.
+                            </p>
+                        </div>
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Preview Image URL'
+                            value={previewImg}
+                            onChange={e => setPreviewImg(e.target.value)}
+                            // required
+                        />
+                        {needPreviewImg && <span className='error'>Preview image is required.</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img1}
+                            onChange={e => setImg1(e.target.value)}
+                            // required
+                        />
+                        {correctImg1 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img2}
+                            onChange={e => setImg2(e.target.value)}
+                            // required
+                            />
+                        {correctImg2 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img3}
+                            onChange={e => setImg3(e.target.value)}
+                            // required
+                            />
+                        {correctImg3 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img4}
+                            onChange={e => setImg4(e.target.value)}
+                            // required
+                            />
+                        {correctImg4 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                    </div> */}
                 <button className='updateButton'>Update your Spot</button>
             </form>
         </div>

@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteSpotThunk } from "../../store/spots";
-
+import { deleteSpot } from "../../store/spots";
 import './DeleteSpotModal.css'
 
 export const DeleteSpotModal = ({ spotId }) => {
@@ -12,7 +11,7 @@ export const DeleteSpotModal = ({ spotId }) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        return dispatch(deleteSpotThunk(spotId)).then(closeModal)
+        return dispatch(deleteSpot(spotId)).then(closeModal)
     }
 
     return (

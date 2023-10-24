@@ -1,4 +1,4 @@
-.updateSpotContainer {
+.updateFormContainer {
     /* border: 1px solid red; */
     max-width: 40%;
     display: flex;
@@ -16,17 +16,17 @@ h2 {
     margin: 0px;
 }
 
-.locationParagraphText {
+.t {
     /* border: 1px solid green; */
     margin: 10px 0px;
 }
 
-.locationParagraphText span {
+.t span {
     font-size: 18px;
     font-weight: 700;
 }
 
-.locationParagraphText p {
+.t p {
     color: black;
     margin: 5px 0px;
     font-size: 13px;
@@ -64,7 +64,7 @@ h2 {
 }
 
 .stateContainer {
-    width: 35%;
+    width: 29.5%;
 }
 
 .commaContainer {
