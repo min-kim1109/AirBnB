@@ -8,8 +8,8 @@ import reviewsReducer from './reviews'
 const rootReducer = combineReducers({
   session: sessionReducer,
   // key into first
-  spot: spotsReducer,
-  review: reviewsReducer
+  spots: spotsReducer,
+  reviews: reviewsReducer
 });
 
 let enhancer;
