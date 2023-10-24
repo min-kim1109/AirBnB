@@ -45,12 +45,7 @@ function App() {
             <SingleSpot isLoaded={isLoaded} />
             <SpotReviews />
           </Route>
-          <Route>
-            <img style={{ width: '100%', height: '100%', marginTop: 1 }}
-              src="https://cdn.mos.cms.futurecdn.net/PuXipAW3AXUzUJ4uYyxPKC-1200-80.jpg" alt="404"
-              onClick={onClick}
-            />
-          </Route>
+
         </Switch>
       )}
     </>

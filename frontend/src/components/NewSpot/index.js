@@ -5,7 +5,7 @@ import * as spotsActions from '../../store/spots'
 import { createSpotImage } from '../../store/spotsImages';
 import './NewSpot.css';
 
-function MakeNewSpot() {
+function CreateNewSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [country, setCountry] = useState('')
@@ -47,19 +47,26 @@ function MakeNewSpot() {
         setCorrectImg3(true)
         setCorrectImg4(true)
         const imgErrorsObj = { previewImgError: 'Preview image is required' }
-
+        // if no previewImg, set useState for imgErrors and return
 
         try {
 
             const newSpot = await dispatch(
-
+                // add createSpot thunk function. use components/SignUpFormModal for reference. Line 23
                 spotsActions.createSpot({ country, address, city, state, description, name, price })
             )
             if (!previewImg) return;
 
-
+            // if previewImg, set imgErrors and return
+            // if (previewImg) { (
+            //     // if previewImg does end with ..., setPreviewImg to false, else set true
+            //     previewImg.endsWith('jpg') ? setPreviewImg(true) : setPreviewImg(false) ||
+            //     previewImg.endsWith('jpeg') ? setPreviewImg(true) : setPreviewImg(false) ||
+            //     previewImg.endsWith('png') ? setPreviewImg(true) : setPreviewImg(false)
+            // ) }
+            // checks format
             if (previewImg) {
-
+                // if previewImg does end with ..., setPreviewImg to false, else set true
                 previewImg.endsWith('jpg') ? setNeedPreviewImg(false) : setNeedPreviewImg(true) ||
                     previewImg.endsWith('jpeg') ? setNeedPreviewImg(false) : setNeedPreviewImg(true) ||
                         previewImg.endsWith('png') ? setNeedPreviewImg(false) : setNeedPreviewImg(true)
@@ -92,7 +99,8 @@ function MakeNewSpot() {
                             img4.endsWith('png') ? setCorrectImg4(true) : setCorrectImg4(false)
                 )
             }
-
+            // console.log('newSpot: ', newSpot)
+            // creates new previewImg and following spot images
             if (newSpot.id) {
                 await dispatch(createSpotImage({ url: previewImg, preview: true }, newSpot.id))
                 await dispatch(createSpotImage({ url: img1, preview: false }, newSpot.id))
@@ -102,34 +110,38 @@ function MakeNewSpot() {
             }
             console.log('NewSpot newSpot: ', newSpot)
             history.push(`/spots/${newSpot.id}`)
-
+            // error = response.error
+            // catches errors from backend validations
         } catch (error) {
 
             if (error) {
                 const data = await error.json()
                 setErrors(data.errors)
+                // console.log('NewSpot component error: ', error)
+                // console.log('data: ', data)
 
                 if (!previewImg) {
-
+                    // throws error for previewImg required
                     setNeedPreviewImg(true)
                     setImgErrors(true)
-
+                    // console.log('imgErrors: ', imgErrors)
+                    // return imgErrors, data
                 } if (img1 && correctImg1) {
                     console.log('ERRORS in img1 format')
                     setCorrectImg1(false)
-
+                    // return imgErrors, data, correctImg1
                 } if (img2 && !correctImg2) {
                     console.log('ERRORS in img2 format')
                     setCorrectImg2(false)
-
+                    // return imgErrors, data, correctImg2
                 } if (img3 && !correctImg3) {
                     console.log('ERRORS in img3 format')
                     setCorrectImg1(false)
-
+                    // return imgErrors, data, correctImg3
                 } if (img4 && !correctImg4) {
                     console.log('ERRORS in img4 format')
                     setCorrectImg4(false)
-
+                    // return imgErrors, data, correctImg4
                 } else return imgErrors, data, correctImg1, correctImg2, correctImg3, correctImg4
             }
         }
@@ -317,4 +329,4 @@ function MakeNewSpot() {
     )
 }
 
-export default MakeNewSpot;
+export default CreateNewSpot;

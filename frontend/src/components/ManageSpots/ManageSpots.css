@@ -34,13 +34,13 @@
     border-radius: 0px;
     height: auto;
     width: 25%;
-    background-color: rgb(65, 156, 121);
+    background-color: gray;
     color: white;
     padding: 3px;
     /* margin: 5px 0px; */
     text-decoration: none;
     text-align: center;
-    box-shadow: 1px 1px 1px black;
+    box-shadow: 3px 3px 1px black;
 }
 
 .bottomButtons div {
@@ -108,8 +108,8 @@
     position: sticky;
     font-size: 12px;
     bottom: 100%;
-    color: white;
-    background-color: black;
+    color: #FF5A60;
+    background-color: white;
     border: 1px solid black;
     border-radius: 10px;
     transition: opacity 0.4s;
@@ -149,6 +149,16 @@
     border: 2px solid black;
     border-radius: 0px;
     height: auto;
-    background-color: rgb(128, 128, 128);
+    background-color: gray;
     color: white;
 }
+
+
+/* May need for making more rows */
+/* @media (max-width: 400px) {
+    .flex-grid {
+      display: block;
+    }
+
+    flex: 1 will cause to auto shrink with equal width
+  } */
