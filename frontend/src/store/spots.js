@@ -110,7 +110,7 @@ export const deleteSpotThunk = (spotId) => async dispatch => {
 };
 
 // key into 2nd
-const initialState = { allSpots: {}, singleSpot: { SpotImages: [] } }
+const initialState = { allSpots: {}, singleSpot: {}, userSpots: [] }
 
 const spotsReducer = (state = initialState, action) => {
     let newState;
@@ -120,14 +120,12 @@ const spotsReducer = (state = initialState, action) => {
             newState = { ...state, allSpots: {} };
             // key into 'spot' from action creator and 'Spots' from the return in backend route
             action.spot.Spots.forEach(spot => {
-
                 newState.allSpots[spot.id] = spot
             });
             return newState;
 
         case GET_SPOT:
-            newState = { ...state, singleSpot: {} }
-            newState.singleSpot = action.spot;
+            newState = { ...state, singleSpot: action.spot }
             return newState;
 
         case GET_USER_SPOTS:
