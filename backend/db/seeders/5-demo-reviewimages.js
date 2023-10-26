@@ -39,10 +39,7 @@ module.exports = {
         reviewId: 7,
         url: 'www.test3'
       },
-      {
-        reviewId: 8,
-        url: 'www.test3'
-      }
+
     ])
     /**
      * Add seed commands here.

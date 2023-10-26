@@ -25,40 +25,35 @@ module.exports = {
       },
       {
         spotId: 3,
-        userId: 1,
+        userId: 2,
         review: 'Horrible',
         stars: 3
       },
       {
         spotId: 4,
-        userId: 1,
+        userId: 3,
         review: 'Horrible',
         stars: 5
       },
       {
         spotId: 5,
-        userId: 1,
-        review: 'Horrible',
-        stars: 4.5
-      },
-      {
-        spotId: 6,
-        userId: 1,
-        review: 'Horrible',
-        stars: 1.5
-      },
-      {
-        spotId: 7,
-        userId: 1,
+        userId: 4,
         review: 'Horrible',
         stars: 4
       },
       {
-        spotId: 8,
-        userId: 1,
+        spotId: 6,
+        userId: 5,
         review: 'Horrible',
-        stars: 5
-      }
+        stars: 1
+      },
+      {
+        spotId: 7,
+        userId: 6,
+        review: 'Horrible',
+        stars: 4
+      },
+
     ])
     /**
      * Add seed commands here.
