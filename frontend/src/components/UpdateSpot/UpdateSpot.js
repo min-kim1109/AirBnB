@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import * as spotsActions from '../../store/spots'
-
 import './UpdateSpot.css';
 
 function UpdateSpot() {
@@ -17,7 +16,6 @@ function UpdateSpot() {
     const [price, setPrice] = useState()
     const [errors, setErrors] = useState({})
 
-
     function checkValue(e) {
         setPrice(decimalsOnly(e.target.value))
     }
@@ -31,16 +29,17 @@ function UpdateSpot() {
     let { spotId } = useParams();
     spotId = parseInt(spotId)
 
-    // console.log('UpdateSpot spotDetails: ', spotDetails)
+    console.log('UpdateSpot spotDetails: ', spotDetails)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
 
-
         try {
+
             const updateSpot = await dispatch(
-                spotsActions.updateSpotThunk({
+
+                spotsActions.updateSpot({
                     ...spotDetails,
                     country,
                     address,
@@ -51,9 +50,12 @@ function UpdateSpot() {
                     price
                 })
             )
+
+
             history.push(`/spots/${updateSpot.id}`)
 
         } catch (error) {
+
             if (error) {
                 // data receives errors object
                 console.log('NewSpot component error: ', error)
@@ -66,17 +68,17 @@ function UpdateSpot() {
     }
 
     useEffect(() => {
-        dispatch(spotsActions.getSpotThunk(spotId))
+        dispatch(spotsActions.getSpot(spotId))
     }, [dispatch])
 
     if (!spotDetails) return null;
 
     return (
-        <div className='updateSpotContainer'>
+        <div className='updateFormContainer'>
             <h2>Update your Spot</h2>
             <form onSubmit={handleSubmit}>
                 <div className='locationParagraph'>
-                    <div className='locationParagraphText'>
+                    <div className='t'>
                         <span>Where's your place located?</span>
                         <p>Guests will only get your exact address once they booked a reservation.</p>
                     </div>
@@ -121,7 +123,7 @@ function UpdateSpot() {
                             // required
                             />
                         </ul>
-
+                        <ul className='commaContainer'>,</ul>
 
                         <ul className='stateContainer'>
                             <span>
@@ -194,7 +196,59 @@ function UpdateSpot() {
                     </div>
                     {errors.price && <span className='error bottomError'>Price is required</span>}
                 </div>
-
+                {/* <div className='c photoContainer'>
+                        <div className='t'>
+                            <span>Liven up your spot with photos</span>
+                            <p>
+                                Submit a link to at least one photo to publish your spot.
+                            </p>
+                        </div>
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Preview Image URL'
+                            value={previewImg}
+                            onChange={e => setPreviewImg(e.target.value)}
+                            // required
+                        />
+                        {needPreviewImg && <span className='error'>Preview image is required.</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img1}
+                            onChange={e => setImg1(e.target.value)}
+                            // required
+                        />
+                        {correctImg1 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img2}
+                            onChange={e => setImg2(e.target.value)}
+                            // required
+                            />
+                        {correctImg2 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img3}
+                            onChange={e => setImg3(e.target.value)}
+                            // required
+                            />
+                        {correctImg3 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                        <input
+                            className='i'
+                            type='url'
+                            placeholder='Image URL'
+                            value={img4}
+                            onChange={e => setImg4(e.target.value)}
+                            // required
+                            />
+                        {correctImg4 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
+                    </div> */}
                 <button className='updateButton'>Update your Spot</button>
             </form>
         </div>

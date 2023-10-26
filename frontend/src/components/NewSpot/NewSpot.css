@@ -4,7 +4,7 @@
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
+
     width: 430px;
 }
 
@@ -75,11 +75,14 @@ form {
 .form-submitbutton {
     color: white;
     background-color: #FF5A60;
-    border-radius: 4px;
-    width: 140px;
-    height: 30px;
+    width: 110px;
+    height: 25px;
     margin: 20px auto;
+    box-shadow: 3px 3px 1px black;
+    border: 1px solid black;
+    border-radius: 0;
 }
+
 
 
 .form-errors {
@@ -90,12 +93,13 @@ form {
 
 .form-errorcontainer {
     display: flex;
-    column-gap: 8px;
+    column-gap: 0px;
     align-items: center;
 }
 
 .form-errorcontainer>label {
     margin-top: 3px;
+    margin-left: 25px;
 }
 
 .form-pricecontainer {
@@ -132,4 +136,9 @@ form {
 
 textarea {
     resize: none;
+}
+
+.form-submitbutton {
+    display: flex;
+    justify-content: center;
 }
