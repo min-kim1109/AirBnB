@@ -83,6 +83,20 @@ export const createSpot = (spot) => async (dispatch) => {
     return newSpot
 };
 
+export const thunkCreateImageForSpot = (newSpotId, url, preview) => async (dispatch) => {
+    if (url === "") return null;
+    const response = await csrfFetch(`/api/spots/${newSpotId}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, preview })
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        return data;
+    }
+};
+
 // THUNK action to delete spot
 export const deleteSpot = (spotId) => async dispatch => {
     // fetch must be made to URL path

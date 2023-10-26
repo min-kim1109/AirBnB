@@ -1,335 +1,376 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import * as spotsActions from '../../store/spots'
-import { createSpotImage } from '../../store/spotsImages';
-import './NewSpot.css';
+import React from "react";
+import "./NewSpot.css";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import {
+    createSpot,
+    getSpot,
+    thunkCreateImageForSpot,
+} from "../../store/spots";
 
-function CreateNewSpot() {
-    const dispatch = useDispatch();
+function CreateNewForm() {
     const history = useHistory();
-    const [country, setCountry] = useState('')
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [description, setDescription] = useState('')
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState()
-    const [img1, setImg1] = useState('')
-    const [img2, setImg2] = useState('')
-    const [img3, setImg3] = useState('')
-    const [img4, setImg4] = useState('')
-    const [errors, setErrors] = useState({})
-    const [imgErrors, setImgErrors] = useState(false)
-    const [previewImg, setPreviewImg] = useState('')
-    const [needPreviewImg, setNeedPreviewImg] = useState(false)
-    const [correctImg1, setCorrectImg1] = useState(true)
-    const [correctImg2, setCorrectImg2] = useState(true)
-    const [correctImg3, setCorrectImg3] = useState(true)
-    const [correctImg4, setCorrectImg4] = useState(true)
+    const dispatch = useDispatch();
 
-    function checkValue(e) {
-        setPrice(decimalsOnly(e.target.value))
-    }
+    const [country, setCountry] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [description, setDescription] = useState("");
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [preview, setPreview] = useState("");
+    const [urlOne, setUrlOne] = useState("");
+    const [urlTwo, setUrlTwo] = useState("");
+    const [urlThree, setUrlThree] = useState("");
+    const [urlFour, setUrlFour] = useState("");
+    const [errors, setErrors] = useState({});
 
-    function decimalsOnly(value) {
-        const regex = /([0-9]*[\.|\,]{0,1}[0-9]{0,2})/s;
-        return value.match(regex)[0];
+    const updateCountry = (e) => setCountry(e.target.value);
+    const updateAddress = (e) => setAddress(e.target.value);
+    const updateCity = (e) => setCity(e.target.value);
+    const updateState = (e) => setState(e.target.value);
+    const updateDescription = (e) => setDescription(e.target.value);
+    const updateName = (e) => setName(e.target.value);
+    const updatePrice = (e) => setPrice(e.target.value);
+    const updatePreview = (e) => setPreview(e.target.value);
+    const updateUrlOne = (e) => setUrlOne(e.target.value);
+    const updateUrlTwo = (e) => setUrlTwo(e.target.value);
+    const updateUrlThree = (e) => setUrlThree(e.target.value);
+    const updateUrlFour = (e) => setUrlFour(e.target.value);
+
+    function checkErrors(
+        address,
+        city,
+        state,
+        country,
+        name,
+        description,
+        price,
+        preview,
+        urlOne,
+        urlTwo,
+        urlThree,
+        urlFour
+    ) {
+        const errorsObj = {};
+        if (address.length < 4) errorsObj["address"] = "Address is required.";
+        if (city.length < 1) errorsObj["city"] = "City is required.";
+        if (state.length < 1) errorsObj["state"] = "State is required.";
+        if (country.length < 2) errorsObj["country"] = "Country is required.";
+        if (name.length < 1) errorsObj["name"] = "Name is required.";
+        if (description.length < 30)
+            errorsObj["description"] = "Description needs 30 or more characters.";
+        if (description.length > 250)
+            errorsObj['description'] = 'Description cannot exceed 250 characters.'
+        if (price <= 0) errorsObj["price"] = "Price per night is required.";
+        if (price >= 9999) errorsObj['priceMax'] = 'Price cannot exceed $9999';
+        if (preview.length < 1) errorsObj["previewLength"] = "Preview image is required.";
+        if (
+            preview.toLowerCase().endsWith(".png") ||
+            preview.toLowerCase().endsWith(".jpeg") ||
+            preview.toLowerCase().endsWith(".jpg")
+        ) {
+
+        } else {
+            errorsObj["previewEnd"] = 'Preview image URL must end in .png, .jpg, or .jpeg'
+        }
+        if (urlOne) {
+            if (
+                urlOne.toLowerCase().endsWith(".png") ||
+                urlOne.toLowerCase().endsWith(".jpeg") ||
+                urlOne.toLowerCase().endsWith(".jpg")
+            ) {
+            } else {
+                errorsObj["urlOne"] = "Image URL must end in .png, .jpg, or .jpeg";
+            }
+        }
+        if (urlTwo) {
+            if (
+                urlTwo.toLowerCase().endsWith(".png") ||
+                urlTwo.toLowerCase().endsWith(".jpeg") ||
+                urlTwo.toLowerCase().endsWith(".jpg")
+            ) {
+            } else {
+                errorsObj["urlTwo"] = "Image URL must end in .png, .jpg, or .jpeg";
+            }
+        }
+        if (urlThree) {
+            if (
+                urlThree.toLowerCase().endsWith(".png") ||
+                urlThree.toLowerCase().endsWith(".jpeg") ||
+                urlThree.toLowerCase().endsWith(".jpg")
+            ) {
+            } else {
+                errorsObj["urlThree"] = "Image URL must end in .png, .jpg, or .jpeg";
+            }
+        }
+        if (urlFour) {
+            if (
+                urlFour.toLowerCase().endsWith(".png") ||
+                urlFour.toLowerCase().endsWith(".jpeg") ||
+                urlFour.toLowerCase().endsWith(".jpg")
+            ) {
+            } else {
+                errorsObj["urlFour"] = "Image URL must end in .png, .jpg, or .jpeg";
+            }
+        }
+
+        return errorsObj;
     }
+    // hard code lat/long values because its optional
+    const lat = 11;
+    const lng = 14;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({})
-        setImgErrors({})
-        setNeedPreviewImg(false)
-        setCorrectImg1(true)
-        setCorrectImg2(true)
-        setCorrectImg3(true)
-        setCorrectImg4(true)
-        const imgErrorsObj = { previewImgError: 'Preview image is required' }
-        // if no previewImg, set useState for imgErrors and return
+        const foundErrors = checkErrors(
+            address,
+            city,
+            state,
+            country,
+            name,
+            description,
+            price,
+            preview,
+            urlOne,
+            urlTwo,
+            urlThree,
+            urlFour
+        );
 
-        try {
-
-            const newSpot = await dispatch(
-                // add createSpot thunk function. use components/SignUpFormModal for reference. Line 23
-                spotsActions.createSpot({ country, address, city, state, description, name, price })
-            )
-            if (!previewImg) return;
-
-            // if previewImg, set imgErrors and return
-            // if (previewImg) { (
-            //     // if previewImg does end with ..., setPreviewImg to false, else set true
-            //     previewImg.endsWith('jpg') ? setPreviewImg(true) : setPreviewImg(false) ||
-            //     previewImg.endsWith('jpeg') ? setPreviewImg(true) : setPreviewImg(false) ||
-            //     previewImg.endsWith('png') ? setPreviewImg(true) : setPreviewImg(false)
-            // ) }
-            // checks format
-            if (previewImg) {
-                const validExtensions = ['.jpg', '.jpeg', '.png'];
-                const imgExtension = previewImg.toLowerCase().slice(previewImg.lastIndexOf('.'));
-                if (validExtensions.includes(imgExtension)) {
-                    setNeedPreviewImg(false);
-                } else {
-                    setNeedPreviewImg(true);
-                }
-            }
-            if (img1) {
-                (
-                    img1.endsWith('jpg') ? setCorrectImg1(true) : setCorrectImg1(false) ||
-                        img1.endsWith('jpeg') ? setCorrectImg1(true) : setCorrectImg1(false) ||
-                            img1.endsWith('png') ? setCorrectImg1(true) : setCorrectImg1(false)
-                )
-            }
-            if (img2) {
-                (
-                    img2.endsWith('jpg') ? setCorrectImg2(true) : setCorrectImg2(false) ||
-                        img2.endsWith('jpeg') ? setCorrectImg2(true) : setCorrectImg2(false) ||
-                            img2.endsWith('png') ? setCorrectImg2(true) : setCorrectImg2(false)
-                )
-            }
-            if (img3) {
-                (
-                    img3.endsWith('jpg') ? setCorrectImg3(true) : setCorrectImg3(false) ||
-                        img3.endsWith('jpeg') ? setCorrectImg3(true) : setCorrectImg3(false) ||
-                            img3.endsWith('png') ? setCorrectImg3(true) : setCorrectImg3(false)
-                )
-            }
-            if (img4) {
-                (
-                    img4.endsWith('jpg') ? setCorrectImg4(true) : setCorrectImg4(false) ||
-                        img4.endsWith('jpeg') ? setCorrectImg4(true) : setCorrectImg4(false) ||
-                            img4.endsWith('png') ? setCorrectImg4(true) : setCorrectImg4(false)
-                )
-            }
-            // console.log('newSpot: ', newSpot)
-            // creates new previewImg and following spot images
-            if (newSpot.id) {
-                await dispatch(createSpotImage({ url: previewImg, preview: true }, newSpot.id))
-                await dispatch(createSpotImage({ url: img1, preview: false }, newSpot.id))
-                await dispatch(createSpotImage({ url: img2, preview: false }, newSpot.id))
-                await dispatch(createSpotImage({ url: img3, preview: false }, newSpot.id))
-                await dispatch(createSpotImage({ url: img4, preview: false }, newSpot.id))
-            }
-            console.log('NewSpot newSpot: ', newSpot)
-            history.push(`/spots/${newSpot.id}`)
-            // error = response.error
-            // catches errors from backend validations
-        } catch (error) {
-
-            if (error) {
-                const data = await error.json()
-                setErrors(data.errors)
-                // console.log('NewSpot component error: ', error)
-                // console.log('data: ', data)
-
-                if (!previewImg) {
-                    // throws error for previewImg required
-                    setNeedPreviewImg(true)
-                    setImgErrors(true)
-                    // console.log('imgErrors: ', imgErrors)
-                    // return imgErrors, data
-                } if (img1 && correctImg1) {
-                    console.log('ERRORS in img1 format')
-                    setCorrectImg1(false)
-                    // return imgErrors, data, correctImg1
-                } if (img2 && !correctImg2) {
-                    console.log('ERRORS in img2 format')
-                    setCorrectImg2(false)
-                    // return imgErrors, data, correctImg2
-                } if (img3 && !correctImg3) {
-                    console.log('ERRORS in img3 format')
-                    setCorrectImg1(false)
-                    // return imgErrors, data, correctImg3
-                } if (img4 && !correctImg4) {
-                    console.log('ERRORS in img4 format')
-                    setCorrectImg4(false)
-                    // return imgErrors, data, correctImg4
-                } else return imgErrors, data, correctImg1, correctImg2, correctImg3, correctImg4
-            }
+        setErrors(foundErrors);
+        if (Object.values(foundErrors).length > 0) {
+            return null;
         }
-    }
+
+        const payload = {
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price,
+        };
+        const newSpot = await dispatch(createSpot(payload));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, preview, true));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlOne, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlTwo, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlThree, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlFour, false));
+
+        if (newSpot) {
+            dispatch(getSpot(newSpot.id));
+            history.push(`/spots/${newSpot.id}`);
+        }
+    };
 
     return (
-        <div className='spotFormContainer'>
-            <h2>Create a new Spot</h2>
+        <div className="form-container">
+            <h1 className="form-header">Create a New Spot</h1>
+            <h2 className="form-header2">Where's your place located?</h2>
+            <p className="form-header3">
+                Guests will only get your exact address once they booked a reservation.
+            </p>
+
             <form onSubmit={handleSubmit}>
-                <div className='locationParagraph'>
-                    <div className='t'>
-                        <span>Where's your place located?</span>
-                        <p>Guests will only get your exact address once they booked a reservation.</p>
-                    </div>
+                <div class="form-errorcontainer">
+                    <label>Country</label>
+                    {errors.country && <p className="form-errors">{errors.country}</p>}
                 </div>
-                <div className='c spotLocationContainer'>
-                    <ul>
-                        <span>Country</span>
-                        {errors.country && <span className='error sideError'>Country is required</span>}
-                        <input
-                            className='i'
-                            type='text'
-                            placeholder='Country'
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                        // required
-                        />
-                    </ul>
-                    <ul>
-                        <span>Street Addrress</span>
-                        {errors.address && <span className='error sideError'>Address is required</span>}
-                        <input
-                            className='i'
-                            type='text'
-                            placeholder='Address'
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        // required
-                        />
-                    </ul>
-                    <div className='cityStateContainer'>
-                        <ul className='cityContainer'>
-                            <span>City {errors.city && <span className='error sideError'>City is required</span>}</span>
+                <input
+                    type="text"
+                    name="Country"
+                    value={country}
+                    onChange={updateCountry}
+                    placeholder="Country"
+                />
 
-                            <input
-                                className='cityInput'
-                                type='text'
-                                placeholder='City'
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            // required
-                            />
-                        </ul>
-                        <ul className='commaContainer'>,</ul>
+                <div className="form-errorcontainer">
+                    <label>Street Address</label>
+                    {errors.address && (
+                        <p className="form-errors address">{errors.address}</p>
+                    )}
+                </div>
+                <input
+                    type="text"
+                    name="Address"
+                    value={address}
+                    onChange={updateAddress}
+                    placeholder="Address"
+                />
 
-                        <ul className='stateContainer'>
-                            <span>
-                                State
-                                {errors.state && <span className='error stateError'>State is required</span>}
-                            </span>
-                            <input
-                                className='stateInput'
-                                type='text'
-                                placeholder='STATE'
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                            // required
-                            />
-                        </ul>
-                    </div>
-                </div>
-                <div className='c descriptionContainer'>
-                    <div className='t'>
-                        <span>Describe your place to guests</span>
-                        <p>
-                            Mention the best features of your space, any special amentities like
-                            fast wifi or parking, and what you love about the neighborhood.
-                        </p>
-                    </div>
-                    <textarea
-                        className='descriptionInput'
-                        type='text'
-                        placeholder='Please write at least 30 characters'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    // required
-                    >
-                    </textarea>
-                    {errors.description && <span className='error bottomError'>Description needs a minimum of 30 characters</span>}
-                </div>
-                <div className='c titleContainer'>
-                    <div className='t'>
-                        <span>Create a title for your spot</span>
-                        <p>
-                            Catch guests' attention with a spot title that highlights what makes your place special.
-                        </p>
-                    </div>
-                    <input
-                        className='i'
-                        type='text'
-                        placeholder='Name of your spot'
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    // required
-                    />
-                    {errors.name && <span className='error bottomError'>Name is required</span>}
-                </div>
-                <div className='c priceContainer'>
-                    <div className='t'>
-                        <span>Set a base price for your spot</span>
-                        <p>
-                            Competitive pricing can help your listing stand out and rank higher in search results.
-                        </p>
-                    </div>
-                    <div className='dollarByInput'>
-                        <i className="fa-solid fa-dollar-sign"></i>
+                <div className="form-citystate-container">
+                    <div className="form-citystate  form-city">
+                        <div className="form-errorcontainer">
+                            <label>City</label>
+                            {errors.city && <p className="form-errors city">{errors.city}</p>}
+                        </div>
                         <input
-                            className='priceInput'
-                            type='text'
-                            placeholder='Price per night (USD)'
-                            value={price}
-                            onChange={e => checkValue(e, 'change')}
-                        // required
+                            type="text"
+                            name="city"
+                            value={city}
+                            onChange={updateCity}
+                            placeholder="City"
                         />
                     </div>
-                    {errors.price && <span className='error bottomError'>Price is required</span>}
-                </div>
-                <div className='c photoContainer'>
-                    <div className='t'>
-                        <span>Liven up your spot with photos</span>
-                        <p>
-                            Submit a link to at least one photo to publish your spot.
-                        </p>
+
+                    <div className="form-citystate">
+                        <div className="form-errorcontainer">
+                            <label>State</label>
+                            {errors.state && (
+                                <p className="form-errors state">{errors.state}</p>
+                            )}
+                        </div>
+                        <input
+                            type="text"
+                            name="state"
+                            value={state}
+                            onChange={updateState}
+                            placeholder="STATE"
+                        />
                     </div>
-                    <input
-                        className='i'
-                        type='url'
-                        placeholder='Preview Image URL'
-                        value={previewImg}
-                        onChange={e => setPreviewImg(e.target.value)}
-                    // required
-                    />
-                    {needPreviewImg && <span className='error'>Preview image is required.</span>}
-                    {previewImg && !needPreviewImg && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
-                    <input
-                        className='i'
-                        type='url'
-                        placeholder='Image URL'
-                        value={img1}
-                        onChange={e => setImg1(e.target.value)}
-                    // required
-                    />
-                    {!correctImg1 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
-                    <input
-                        className='i'
-                        type='url'
-                        placeholder='Image URL'
-                        value={img2}
-                        onChange={e => setImg2(e.target.value)}
-                    // required
-                    />
-                    {!correctImg2 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
-                    <input
-                        className='i'
-                        type='url'
-                        placeholder='Image URL'
-                        value={img3}
-                        onChange={e => setImg3(e.target.value)}
-                    // required
-                    />
-                    {!correctImg3 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
-                    <input
-                        className='i'
-                        type='url'
-                        placeholder='Image URL'
-                        value={img4}
-                        onChange={e => setImg4(e.target.value)}
-                    // required
-                    />
-                    {!correctImg4 && <span className='error'>Image URL must end in .png, .jpg, .jpeg</span>}
                 </div>
-                <button>Create Spot</button>
+
+                <div className="form-line"></div>
+
+                <h2 className="form-header2">Describe your place to guests</h2>
+                <p className="form-header3">
+                    Mention the best features of your space, any special amentities like
+                    fast wifi or parking, and what you love about the neighborhood.
+                </p>
+                {errors.description && (
+                    <p className="form-errors description">{errors.description}</p>
+                )}
+                <textarea
+                    className="form-textarea"
+                    value={description}
+                    onChange={updateDescription}
+                    placeholder="Please write at least 30 characters"
+                />
+
+                <div className="form-line"></div>
+
+                <label className="form-header2">Create a title for your spot</label>
+                <p className="form-header3">
+                    Catch guests' attention with a spot title that highlights what makes your
+                    place special.
+                </p>
+
+                {errors.name && <p className="form-errors name">{errors.name}</p>}
+                <input
+                    className="form-name"
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={updateName}
+                    placeholder="Name of your spot"
+                />
+
+                <div className="form-line"></div>
+
+                <label className="form-header2">Set a base price for your spot</label>
+                <p className="form-header3">
+                    Competitive pricing can help your listing stand out and rank higher in
+                    search results.
+                </p>
+                <div className="form-pricecontainer">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <input
+                        className="form-price"
+                        type="number"
+                        name="price"
+                        value={price}
+                        onChange={updatePrice}
+                        placeholder="Price per night (USD)"
+                    />
+                    {errors.price && <p className="form-errors price">{errors.price}</p>}
+                    {errors.priceMax && <p className="form-errors price">{errors.priceMax}</p>}
+                </div>
+
+                <div className="form-line"></div>
+
+                <label className="form-header2">Liven up your spot with photos</label>
+                <p className="form-header3">
+                    Submit a link to at least one photo to publish your spot.
+                </p>
+                <div className="form-urlcontainer">
+                    {errors.previewLength && (
+                        <p className="form-errors preview">{errors.previewLength}</p>
+                    )}
+                    {errors.previewEnd && (
+                        <p className="form-errors preview">{errors.previewEnd}</p>
+                    )}
+                    <input
+                        className="form-previewurl"
+                        type="url"
+                        name="previewURL"
+                        value={preview}
+                        onChange={updatePreview}
+                        placeholder="Preview Image URL"
+                    />
+
+                    {errors.urlOne && (
+                        <p className="form-errors form-url">{errors.urlOne}</p>
+                    )}
+                    <input
+                        className="form-url"
+                        type="url"
+                        name="additionalURL"
+                        value={urlOne}
+                        onChange={updateUrlOne}
+                        placeholder="Image URL"
+                    />
+
+                    {errors.urlTwo && (
+                        <p className="form-errors form-url">{errors.urlTwo}</p>
+                    )}
+                    <input
+                        className="form-url"
+                        type="url"
+                        name="additionalURL"
+                        value={urlTwo}
+                        onChange={updateUrlTwo}
+                        placeholder="Image URL"
+                    />
+
+                    {errors.urlThree && (
+                        <p className="form-errors form-url">{errors.urlThree}</p>
+                    )}
+                    <input
+                        className="form-url"
+                        type="url"
+                        name="additionalURL"
+                        value={urlThree}
+                        onChange={updateUrlThree}
+                        placeholder="Image URL"
+                    />
+
+                    {errors.urlFour && (
+                        <p className="form-errors form-url last-url">{errors.urlFour}</p>
+                    )}
+                    <input
+                        className="form-url"
+                        type="url"
+                        name="additionalURL"
+                        value={urlFour}
+                        onChange={updateUrlFour}
+                        placeholder="Image URL"
+                    />
+                </div>
+
+                <div className="form-line"></div>
+
+                <button className="form-submitbutton" type="submit">
+                    Create Spot
+                </button>
             </form>
         </div>
-    )
+    );
 }
 
-export default CreateNewSpot;
+export default CreateNewForm;

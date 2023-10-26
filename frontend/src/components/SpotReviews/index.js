@@ -31,7 +31,7 @@ const SpotReviews = () => {
 
     useEffect(() => {
         dispatch(getSpotReviews(spotId))
-    }, [dispatch])
+    }, [dispatch,])
 
     if (!reviews) return null
     if (!sessionUser) sessionUser = 0;
@@ -41,12 +41,10 @@ const SpotReviews = () => {
             {!spotReviews.length && sessionUser ? <h2>Be the first to post a review!</h2> : <></>}
             {!spotReviews.length ? <></> : spotReviews.map(review => (
                 <div key={`${review.id}`} className="review">
-                    {/* <h2>hello</h2> */}
-                    <span className="name">{review.User.firstName}</span>
-                    {/* <span className="date">{Date(review.createdAt).substring(4,16)}</span> */}
+                    <span className="name">{review.User?.firstName || 'Unknown User'}</span>
                     <span className="date">{lowBudgetDateConverter(review.createdAt)}</span>
                     <div className="reviewBody">{review.review}</div>
-                    {review.User.id === sessionUser.id ?
+                    {review.User?.id === sessionUser?.id ?
                         <button className="deleteReviewButton">
                             <OpenModalMenuItem itemText='Delete' modalComponent={<DeleteReviewModal review={review} />} />
                         </button>

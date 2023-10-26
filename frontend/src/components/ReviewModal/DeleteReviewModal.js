@@ -11,11 +11,7 @@ const DeleteReviewModal = ({ review }) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        dispatch(reviewActions.deleteReview(review.id))
-            .then(() => {
-                dispatch(reviewActions.deleteAReview(review.id)); // Update Redux store
-                closeModal();
-            });
+        return dispatch(reviewActions.deleteReview(review.id)).then(closeModal)
     }
 
     useEffect(() => {
