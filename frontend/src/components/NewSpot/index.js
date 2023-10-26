@@ -66,10 +66,13 @@ function CreateNewSpot() {
             // ) }
             // checks format
             if (previewImg) {
-                // if previewImg does end with ..., setPreviewImg to false, else set true
-                previewImg.endsWith('jpg') ? setNeedPreviewImg(false) : setNeedPreviewImg(true) ||
-                    previewImg.endsWith('jpeg') ? setNeedPreviewImg(false) : setNeedPreviewImg(true) ||
-                        previewImg.endsWith('png') ? setNeedPreviewImg(false) : setNeedPreviewImg(true)
+                const validExtensions = ['.jpg', '.jpeg', '.png'];
+                const imgExtension = previewImg.toLowerCase().slice(previewImg.lastIndexOf('.'));
+                if (validExtensions.includes(imgExtension)) {
+                    setNeedPreviewImg(false);
+                } else {
+                    setNeedPreviewImg(true);
+                }
             }
             if (img1) {
                 (

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getSpotReviews } from "../../store/reviews";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import { DeleteReviewModal } from "../ReviewModal/DeleteReviewModal";
+import DeleteReviewModal from "../ReviewModal/DeleteReviewModal";
 import './SpotReviews.css'
 
 const SpotReviews = () => {
