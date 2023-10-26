@@ -100,8 +100,8 @@ const SingleSpot = () => {
                 <div className="infoBox">
                     <div className="topInfo">
                         <div className="priceNight">
-                            <h3 className="price">${spot.price}</h3>
-                            <h5 className="night">/night</h5>
+                            <h3 className="price">${spot.price} </h3>
+                            <h5 className="night"> night</h5>
                         </div>
                         <div className="ratingReviews">
                             <h5 className="rating">
