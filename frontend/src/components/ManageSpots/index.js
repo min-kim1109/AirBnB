@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// import { getUserSpots } from '../../store/spots'
 import * as spotsActions from '../../store/spots'
 import { DeleteSpotModal } from './DeleteSpotModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
@@ -17,7 +18,7 @@ const UserSpots = () => {
     const userSpots = useSelector(state => state.spot.allSpots)
     // console.log('userSpots: ', userSpots)
     const spotsArray = Object.values(userSpots)
-    console.log('MANAGESPOTS spotsArray: ', spotsArray)
+    // console.log('MANAGESPOTS spotsArray: ', spotsArray)
 
     // onClick to handle creating new spot
     const onClick = (e) => {
@@ -25,7 +26,7 @@ const UserSpots = () => {
     }
 
     useEffect(() => {
-        dispatch(spotsActions.getUserSpotsThunk())
+        dispatch(spotsActions.getUserSpots())
     }, [dispatch])
 
     return (

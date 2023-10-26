@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import * as sessionActions from "../../store/session";
-import OpenModalMenuItem from "./OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import { useDispatch } from 'react-redux';
 import { NavLink, useHistory } from "react-router-dom";
+import * as sessionActions from '../../store/session';
+import OpenModalMenuItem from './OpenModalMenuItem';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
-    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -26,7 +27,7 @@ function ProfileButton({ user }) {
             }
         };
 
-        document.addEventListener("click", closeMenu);
+        document.addEventListener('click', closeMenu);
 
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
@@ -37,82 +38,60 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
-        history.push("/");
+        history.push('/')
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <>
-            <div className="user-nav">
+            <div className="leftNav">
                 {user ? (
-                    <span>
-                        <NavLink className="create-new-spot" to="/spots/new">
-                            Create a New Spot
-                        </NavLink>
-                    </span>
+                    <NavLink className="createASpot" to='/spots/new'>
+                        Create a New Spot
+                    </NavLink>
                 ) : (
-                    ""
+                    <></>
                 )}
-                <button className="user-button-container" onClick={openMenu}>
-                    <i className="fa-solid fa-bars"></i>
-                    <i className="fas fa-user-circle" />
+                <button onClick={openMenu}>
+                    <div className="menu">
+                        <div className='one'></div>
+                        <div className='two'></div>
+                        <div className='three'></div>
+                    </div>
+                    <i className="fa-solid fa-circle-user"></i>
                 </button>
-            </div>
-            <ul className={ulClassName} ref={ulRef}>
-                {user ? (
-                    <>
-                        <li> Hello, {user.firstName}</li>
-                        <li>{user.email}</li>
-                        <li>
-                            <NavLink
-                                exact
-                                to="/spots/current"
-                                className="manage-spots-current"
-                            >
+                <ul className={ulClassName} ref={ulRef}>
+                    {user ? (
+                        <div className='userDropdown'>
+                            <div className="userMenu">
+                                <div className='dt'>Hello,   {user.firstName}</div>
+                                <div className='dt'>{user.email}</div>
+                            </div>
+                            <NavLink className='dt manageSpots' to='/spots/current'>
                                 Manage Spots
                             </NavLink>
-                        </li>
-                        <li>
-                            {/* <NavLink
-                exact
-                to="/reviews/current"
-                className="manage-reviews-current"
-              >
-                Manage Reviews
-              </NavLink> */}
-                            <div
-                                className="manage-reviews-current"
-                                onClick={() => alert("Feature Coming Soon...")}
-                            >
-                                Manage Reviews
-                            </div>
-                        </li>
-                        <li className="logout-button-container">
-                            <button className="logout-button" onClick={logout}>
-                                Log Out
-                            </button>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <div className="signup-modal">
-                            <OpenModalMenuItem
-                                itemText="Sign Up"
-                                onItemClick={closeMenu}
-                                modalComponent={<SignupFormModal />}
-                            />
+                            <button className='logoutButton' onClick={logout}>Log Out</button>
                         </div>
-                        <div className="login-modal">
+                    ) : (
+                        <div className="loginSignup">
+
                             <OpenModalMenuItem
                                 itemText="Log In"
                                 onItemClick={closeMenu}
                                 modalComponent={<LoginFormModal />}
                             />
+
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                onItemClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
+
                         </div>
-                    </>
-                )}
-            </ul>
+                    )}
+                </ul>
+            </div>
         </>
     );
 }

@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { createSpotThunk, getSpotThunk } from "../../store/spots"
-import './CreateSpot.css';
+import React from "react";
+import "./NewSpot.css";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import {
+    createSpot,
+    getSpot,
+    thunkCreateImageForSpot,
+} from "../../store/spots";
 
-function MakeNewSpot() {
+function CreateNewForm() {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -151,10 +156,15 @@ function MakeNewSpot() {
             description,
             price,
         };
+        const newSpot = await dispatch(createSpot(payload));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, preview, true));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlOne, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlTwo, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlThree, false));
+        await dispatch(thunkCreateImageForSpot(newSpot.id, urlFour, false));
 
-        const newSpot = await dispatch(createSpotThunk(payload));
         if (newSpot) {
-            dispatch(getSpotThunk(newSpot.id));
+            dispatch(getSpot(newSpot.id));
             history.push(`/spots/${newSpot.id}`);
         }
     };
@@ -363,6 +373,4 @@ function MakeNewSpot() {
     );
 }
 
-
-
-export default MakeNewSpot;
+export default CreateNewForm;
