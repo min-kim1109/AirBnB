@@ -1,0 +1,144 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 430px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    margin-bottom: 0px;
+    font-size: 28px;
+}
+
+.form-header2 {
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    font-size: 22px;
+}
+
+.form-header3 {
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: gray
+}
+
+.form-citystate-container {
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-city {
+    width: 300px;
+}
+
+.form-citystate {
+    display: flex;
+    flex-direction: column;
+}
+
+.spotform-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-textarea {
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.form-line {
+    border-top: 1px solid rgb(164, 164, 164);
+}
+
+.form-name {
+    margin-bottom: 29px;
+}
+
+.form-price {
+    margin-left: 10px;
+    width: 204px;
+    margin-bottom: 23px;
+}
+
+
+.form-submitbutton {
+    color: white;
+    background-color: #FF5A60;
+    width: 110px;
+    height: 25px;
+    margin: 20px auto;
+    box-shadow: 3px 3px 1px black;
+    border: 1px solid black;
+    border-radius: 0;
+}
+
+
+
+.form-errors {
+    color: red;
+    margin: 0px;
+    font-size: 12px;
+}
+
+.form-errorcontainer {
+    display: flex;
+    column-gap: 0px;
+    align-items: center;
+}
+
+.form-errorcontainer>label {
+    margin-top: 3px;
+    margin-left: 25px;
+}
+
+.form-pricecontainer {
+    display: flex;
+}
+
+.form-pricecontainer>i {
+    margin-top: 3px;
+}
+
+.description {
+    margin-bottom: 10px;
+}
+
+.name {
+    margin-bottom: 10px;
+}
+
+.price {
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+.form-header2>input {
+    margin-bottom: 0px;
+}
+
+.form-urlcontainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-submitbutton {
+    display: flex;
+    justify-content: center;
+}

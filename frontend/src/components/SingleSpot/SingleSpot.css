@@ -1,0 +1,150 @@
+.entireSpot {
+    /* border: 1px solid red; */
+    max-width: 1000px;
+    margin-top: 20px;
+}
+
+.nameLocation h2 {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: auto;
+}
+
+.nameLocation {
+    /* border: 1px solid red; */
+    max-width: 80%;
+    position: relative;
+    left: 25px;
+}
+
+.imagesContainer {
+    /* border: 1px solid blue; */
+    max-width: 1000px;
+    max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bigImg {
+    /* border: 1px solid red; */
+    max-width: 500px;
+    max-height: 300px;
+}
+
+.bigImg img {
+    max-width: 500px;
+    max-height: 300px;
+}
+
+.imgBox {
+    /* border: 1px solid green; */
+    width: 500px;
+    height: 300px;
+}
+
+.imgBox img {
+    /* border: 1px solid red; */
+    width: 245px;
+    height: 145px;
+    object-fit: fill;
+    margin: 1px 0px 3px 5px;
+}
+
+.spotDetails {
+    border-bottom: 1px solid black;
+    width: 95%;
+    height: 200px;
+    position: relative;
+    left: 25px;
+    display: flex;
+}
+
+.ownerAndDescription {
+    /* border: 1px solid green; */
+    width: 650px;
+    height: auto;
+}
+
+.infoBox {
+    border: 2px solid black;
+    width: 350px;
+    height: 100px;
+    margin-top: 20px;
+    border-radius: 10px;
+    /* display: flex; */
+}
+
+.topInfo {
+    /* border: 1px solid green; */
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*  */
+    padding: 0px 25px 0px 25px;
+}
+
+.priceNight {
+    /* border: 1px solid black; */
+    width: 50%;
+    height: 90%;
+    /* position: relative; */
+    /* bottom: 10px; */
+    display: flex;
+    align-items: baseline;
+}
+
+
+.ratingReviews {
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 40%;
+    margin-left: 10px;
+    max-height: 80%;
+}
+
+.fa-circle {
+    font-size: 3px;
+    position: relative;
+    bottom: 5px;
+}
+
+.reserve {
+    border: 2px solid black;
+    background-color: #FF5A60;
+    box-shadow: 3px 3px 1px black;
+    color: white;
+    border-radius: 0px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    left: 17px;
+    margin-top: 5px;
+}
+
+.starReviews {
+    /* border: 1px solid blue; */
+    width: 15%;
+    position: relative;
+    left: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.postButton {
+    border: 2px solid black;
+    border-radius: 0px;
+    height: auto;
+    background-color: gray;
+    color: white;
+    padding: 3px;
+    margin: 0px 25px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 3px 3px 1px black;
+}

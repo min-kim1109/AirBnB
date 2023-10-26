@@ -1,54 +1,52 @@
-//  File to store 3 authentication helper functions.
+// backend/utils/auth.js
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
 const { User } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
-/***        1st Authentication Middleware function      ***/
-/*      Sendsa a JWT Cookie     */
-//  setTokenCookie() will be used in login and signup routes
-const setTokenCookie = (res, user) => {
+// backend/utils/auth.js
+// ...
 
-    //  Create the token
+// Sends a JWT Cookie
+const setTokenCookie = (res, user) => {
+    // Create the token.
     const safeUser = {
         id: user.id,
         email: user.email,
         username: user.username,
     };
-
     const token = jwt.sign(
         { data: safeUser },
         secret,
-        { expiresIn: parseInt(expiresIn) }  // 604,800 sec = 1 wk
+        { expiresIn: parseInt(expiresIn) } // 604,800 seconds = 1 week
     );
 
     const isProduction = process.env.NODE_ENV === "production";
 
-    //  Set the token cookie
+    // Set the token cookie
     res.cookie('token', token, {
-        maxAge: expiresIn * 1000,   //maxAge in ms
+        maxAge: expiresIn * 1000, // maxAge in milliseconds
         httpOnly: true,
         secure: isProduction,
         sameSite: isProduction && "Lax"
     });
 
     return token;
-}
+};
 
+// backend/utils/auth.js
+// ...
 
-/***      2nd Authentication Middleware function     ***/
-//  Function that will restore the user session based on contents of the JWT cookie
-//  restoreUser middleware will connect to API router so all API route handlers will
-//  check if current user logged in or out.
 const restoreUser = (req, res, next) => {
-
-    //  Token parsed from cookies
+    // token parsed from cookies
     const { token } = req.cookies;
     req.user = null;
 
     return jwt.verify(token, secret, null, async (err, jwtPayload) => {
-        if (err) return next();
+        if (err) {
+            return next();
+        }
 
         try {
             const { id } = jwtPayload.data;
@@ -66,12 +64,12 @@ const restoreUser = (req, res, next) => {
 
         return next();
     });
-}
+};
 
+// backend/utils/auth.js
+// ...
 
-/***        3rd Authentication Middleware function      ***/
-//  Connects directly to route handlers where a current user must be logged in
-//  If no current user, returns an error
+// If there is no current user, return an error
 const requireAuth = function (req, _res, next) {
     if (req.user) return next();
 
@@ -82,7 +80,7 @@ const requireAuth = function (req, _res, next) {
     return next(err);
 }
 
-
-
+// backend/utils/auth.js
+// ...
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
