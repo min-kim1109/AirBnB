@@ -13,23 +13,32 @@ function LoginFormModal() {
     // consuming ModalContext's closeModal function
     const { closeModal } = useModal();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(sessionActions.login({ credential, password }))
-            .then(closeModal)
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data);
-                }
-            });
+        try {
+            await dispatch(sessionActions.login({ credential, password }));
+            closeModal();
+        } catch (res) {
+            const data = await res.json();
+            if (data && data.errors) {
+                setErrors(data);
+            }
+        }
     };
 
-    const demoLogin = (e) => {
-        // e.preventDefault();
-        return dispatch(sessionActions.login({ credential: "john.smith", password: "secret password" }))
-            .then(closeModal)
+    const demoLogin = async () => {
+        setCredential("john.smith");
+        setPassword("secret password");
+        try {
+            await dispatch(sessionActions.login({ credential, password }));
+            closeModal();
+        } catch (res) {
+            const data = await res.json();
+            if (data && data.errors) {
+                setErrors(data);
+            }
+        }
     }
 
     return (
@@ -69,7 +78,7 @@ function LoginFormModal() {
                     </button>
                 </div>
             </form>
-            <button className='demoUser' onClick={(e) => demoLogin()}>
+            <button className='demoUser' onClick={demoLogin}>
                 Demo User
             </button>
         </div>
