@@ -28,8 +28,8 @@ function LoginFormModal() {
     };
 
     const demoLogin = async () => {
-        setCredential("john.smith");
-        setPassword("secret password");
+        setCredential("Demo-lition");
+        setPassword("password");
         try {
             await dispatch(sessionActions.login({ credential, password }));
             closeModal();
