@@ -26,7 +26,6 @@
 }
 
 .spotsBrowser .spot img {
-    /* border: 1px solid green; */
     min-width: 215px;
     width: 100%;
     height: 215px;
@@ -64,7 +63,8 @@
     font-size: 12px;
     font-weight: 700;
     display: flex;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
+    margin-left: 5px;
 }
 
 .topRow {
@@ -72,13 +72,3 @@
     justify-content: space-between;
     margin: 3px 0px 3px 0px;
 }
-
-
-/* May need for making more rows */
-/* @media (max-width: 400px) {
-    .flex-grid {
-      display: block;
-    }
-
-    flex: 1 will cause to auto shrink with equal width
-  } */

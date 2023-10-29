@@ -36,7 +36,7 @@ const SpotsBrowser = () => {
                                 {!spot.avgRating ? <span>NEW</span> : spot.avgRating.toFixed(1)}
                             </span>
                         </div>
-                        <span className='price'>${spot.price}/night</span>
+                        <span className='price'>${spot.price} night</span>
                         <div className='tooltip'>{spot.name}</div>
                     </NavLink>
                 ))}
