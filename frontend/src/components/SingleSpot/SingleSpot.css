@@ -20,7 +20,7 @@
 .imagesContainer {
     /* border: 1px solid blue; */
     max-width: 1000px;
-    max-height: 300px;
+    max-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
 .bigImg {
     /* border: 1px solid red; */
     max-width: 500px;
-    max-height: 300px;
+    max-height: 500px;
 }
 
 .bigImg img {
