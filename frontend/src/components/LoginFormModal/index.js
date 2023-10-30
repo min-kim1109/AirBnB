@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -12,34 +12,36 @@ function LoginFormModal() {
     const [errors, setErrors] = useState({});
     // consuming ModalContext's closeModal function
     const { closeModal } = useModal();
+    const history = useHistory();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
-        try {
-            await dispatch(sessionActions.login({ credential, password }));
-            closeModal();
-        } catch (res) {
-            const data = await res.json();
-            if (data && data.errors) {
-                setErrors(data);
-            }
-        }
+        return dispatch(sessionActions.login({ credential, password }))
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            });
     };
 
-    const demoLogin = async () => {
-        setCredential("Demo-lition");
-        setPassword("password");
-        try {
-            await dispatch(sessionActions.login({ credential, password }));
-            closeModal();
-        } catch (res) {
-            const data = await res.json();
-            if (data && data.errors) {
-                setErrors(data);
-            }
-        }
-    }
+    const demoLogin = (e) => {
+        e.preventDefault();
+        setErrors({});
+        history.push("/");
+        return dispatch(
+            sessionActions.login({ credential: "Demo-lition", password: "password" })
+        )
+            .then(closeModal)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            });
+    };
 
     return (
         <div className="LoginFormModal">
