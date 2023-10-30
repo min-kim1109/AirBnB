@@ -19,36 +19,43 @@
 
 .imagesContainer {
     /* border: 1px solid blue; */
-    max-width: 1000px;
-    max-height: 500px;
+    max-width: 1500px;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 40px;
 }
+
+
 
 .bigImg {
     /* border: 1px solid red; */
-    max-width: 500px;
-    max-height: 500px;
+    width: 720px;
+    height: 400px;
 }
 
 .bigImg img {
-    max-width: 500px;
-    max-height: 300px;
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
 }
 
 .imgBox {
     /* border: 1px solid green; */
-    width: 500px;
-    height: 300px;
+    width: 1000px;
+    height: 500px;
+
 }
 
 .imgBox img {
     /* border: 1px solid red; */
-    width: 245px;
-    height: 145px;
+    width: 195px;
+    height: 195px;
     object-fit: fill;
-    margin: 1px 0px 3px 5px;
+    margin: 1px 0px -45px 5px;
+    border-radius: 5px;
+    margin-top: 50px;
 }
 
 .spotDetails {
