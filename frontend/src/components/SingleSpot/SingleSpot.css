@@ -93,6 +93,8 @@
     /* bottom: 10px; */
     display: flex;
     align-items: baseline;
+    margin-top: 35px;
+    margin-left: -12px;
 }
 
 

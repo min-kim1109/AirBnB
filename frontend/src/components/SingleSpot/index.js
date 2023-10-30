@@ -66,7 +66,7 @@ const SingleSpot = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        alert("FEATURE COMING SOON!")
+        alert("Feature coming soon")
     }
 
     return (
@@ -100,8 +100,8 @@ const SingleSpot = () => {
                 <div className="infoBox">
                     <div className="topInfo">
                         <div className="priceNight">
-                            <h3 className="price">${spot.price} </h3>
-                            <h5 className="night"> night</h5>
+                            <h3 className="price">${spot.price} night</h3>
+                            {/* <h5 className="night"> night</h5> */}
                         </div>
                         <div className="ratingReviews">
                             <h5 className="rating">
@@ -109,7 +109,7 @@ const SingleSpot = () => {
                             </h5>
                             {spot.numReviews ? <i className="fa-solid fa-circle"></i> : <p></p>}
                             <h5 className="numReviews">
-                                {spot.numReviews ? `${spot.numReviews}  ${spot.numReviews > 1 ? 'reviews' : 'review'}` : <p></p>}
+                                {spot.numReviews ? `${spot.numReviews}  ${spot.numReviews > 1 ? 'Reviews' : 'Review'}` : <p></p>}
                             </h5>
                         </div>
                     </div>
