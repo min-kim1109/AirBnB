@@ -2,7 +2,7 @@
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-image: url('https://i.imgur.com/uzVn0QY.png');
-    /* background-size: cover; */
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
