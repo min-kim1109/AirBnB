@@ -13,52 +13,52 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1156550741033492562/1_-_PalletTown.png?ex=65156150&is=65140fd0&hm=9e5f3182dc425d87608476be1857710290444b6cb35acb9529ba88aa82376cea&',
+        url: 'https://i.imgur.com/XALBszG.png',
         preview: true
       },
       {
         spotId: 1,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158361526164525086/1_-_oak.png?ex=651bf7bd&is=651aa63d&hm=570d2332abe9283b15e20c7c48ff5e0bfbd6b812a4b489836755d9a718ead843&',
+        url: 'https://i.imgur.com/qzSBF9Y.png',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158363754636001280/1_-_home.png?ex=651bf9d0&is=651aa850&hm=9e4fac2e2962c359aa25f6da51e435557e68abf0314f9b92491e4cab00955c2d&',
+        url: 'https://i.imgur.com/IOPs1Dg.png',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158364294879117382/1_-_home.png?ex=651bfa51&is=651aa8d1&hm=0c882dd041c7f44ea1fd8dc5eca5e85a97427583a33ab23ff3ef050e602b8859&',
+        url: 'https://i.imgur.com/IOPs1Dg.png',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158364580779655238/1_-_pallettown_new.png?ex=651bfa95&is=651aa915&hm=edfdbad0f2133e0d5cde4c5949474ed8e0ef15396586c68b3ad0c4fcc19a00ff&',
+        url: 'https://i.imgur.com/VF7hSlF.png',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1156555008276430908/2_-_Rustboro_City.png?ex=65156549&is=651413c9&hm=479f10fc7dc16c8b0f3aef2c8f424b2aa3fa8fb81bfd14c161deff9b4debe50a&',
+        url: 'https://i.imgur.com/PYaCrgU.png',
         preview: true
       },
       {
         spotId: 2,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158365711991836712/2_-_roxanne_gym.png?ex=651bfba3&is=651aaa23&hm=5650021bdd326bd3ec7cedf94cf4ec4fc135fb7820a3c667ab9b41cbc1199264&',
+        url: 'https://i.imgur.com/nZDDfS6.png',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158365721722630175/2_-_rustuff_tunnel.png?ex=651bfba5&is=651aaa25&hm=dfd663c544714330e6cdd6718a2be0de441c6e51183ed54ce14f3a438141b15c&',
+        url: 'https://i.imgur.com/5JuKd6D.png',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158365705276760115/2_-_devon_goods_guy.png?ex=651bfba1&is=651aaa21&hm=2055085dd35d3b7a94fa23e7b16b50f05a0a1084bb078215080c3055464247c7&',
+        url: 'https://i.imgur.com/KzcyTdZ.png',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158365697404059698/2_-_cut.png?ex=651bfb9f&is=651aaa1f&hm=06e6ebf7b9759a0beb382ab49553a4e366cd99ce288c82d3615bfde91305fa9f&',
+        url: 'https://i.imgur.com/RuJYiNw.png',
         preview: false
       },
       {
