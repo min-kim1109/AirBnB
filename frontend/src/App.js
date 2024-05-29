@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, useHistory } from "react-router-dom";
 import * as sessionActions from "./store/session";
-// import * as spotsActions from './store/spots'
+
 import Navigation from "./components/Navigation";
 import SpotsBrowser from './components/SpotsLandingPage'
 import SingleSpot from "./components/SingleSpot";
