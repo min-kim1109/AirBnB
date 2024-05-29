@@ -173,42 +173,42 @@ module.exports = {
       },
       {
         spotId: 7,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371231742033920/7_-_2.png?ex=651c00c7&is=651aaf47&hm=1bb61160ab63460ec079ec24ce694b9c6a9994673ef7b2f5b42d3324e9ace93c&',
+        url: 'https://i.imgur.com/GqnNUrR.png',
         preview: false
       },
       {
         spotId: 7,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371232006279258/7_-_3.png?ex=651c00c7&is=651aaf47&hm=5834bf5eef6b827dbcda37dfeb0ed5249227acb712dba09c72fc0296b1aac556&',
+        url: 'https://i.imgur.com/xJMGl8X.png',
         preview: false
       },
       {
         spotId: 7,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371231054168156/7_-_4.png?ex=651c00c6&is=651aaf46&hm=5d8c95b5bde2137f35cdb372ab99e466997fb1cceb48c3c6ac1280a2db77c01c&',
+        url: 'https://i.imgur.com/pLzTxie.png',
         preview: false
       },
       {
         spotId: 8,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1156579980860461098/8_-_SSANNE.png?ex=65157c8b&is=65142b0b&hm=b8cbe1aa3652d60386f2810cf96d3901fd4ab387746c03e80fb38e6a3b61de11&',
+        url: 'https://i.imgur.com/zeJOP4J.png',
         preview: true
       },
       {
         spotId: 8,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371946510168134/8_-_4.png?ex=651c0171&is=651aaff1&hm=291ec052047e90ec30c6daa7b271ac8a2d4b8ebc0faaf615ebe3b9d4f48c15e1&',
+        url: 'https://i.imgur.com/30DWVlh.png',
         preview: false
       },
       {
         spotId: 8,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371946837315604/8_-_1.png?ex=651c0171&is=651aaff1&hm=abb81189297edd03dc8ea332557fc4cdbd7d99fb8dfc4b424a129f4637514ef1&',
+        url: 'https://i.imgur.com/SULqH4A.png',
         preview: false
       },
       {
         spotId: 8,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371947449692290/8_-_3.png?ex=651c0171&is=651aaff1&hm=bae82340445e058902b71ac9c610c4ef7091c6315e2c358a4e7fa7218cf43a89&',
+        url: 'https://i.imgur.com/v84TUru.png',
         preview: false
       },
       {
         spotId: 8,
-        url: 'https://cdn.discordapp.com/attachments/513986476783173643/1158371947168677908/8_-_2.png?ex=651c0171&is=651aaff1&hm=0991cae0970b4eb3995e0e7cff90b4e0053fad137d674b7394becb9bda087297&',
+        url: 'https://i.imgur.com/GdMLWI5.png',
         preview: false
       }
     ])
